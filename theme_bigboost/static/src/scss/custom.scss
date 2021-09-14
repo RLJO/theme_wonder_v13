@@ -19,6 +19,15 @@
     display: block !important;
 }
 
+[aria-hidden="true"].theme-modal, [aria-hidden="1"].theme-modal {
+    display: none !important;;
+}
+
+
 .filter-select{
     margin: 0 !important;
+}
+
+.o_product_circle.o_animate_blink{
+    display: none !important;
 }
