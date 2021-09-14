@@ -1,0 +1,1659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- /shop product listing -->
+    <template id="website_sale.products" name="Products">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Shop</t>
+            <div id="wrap" class="js_sale">
+                <div class="oe_structure" id="oe_structure_website_sale_products_1"/>
+                <!-- breadcrumb start -->
+                <section class="breadcrumb-section section-b-space">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title">
+                                    <h2>COLLECTION</h2>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="/">Home</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">COLLECTION</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <t t-set="shop_style"
+                   t-value="request.env['ir.config_parameter'].get_param('shop_style')"/>
+                <t t-if="shop_style == 'style_1'">
+                    <section class="section-b-space ratio_square">
+                        <div class="collection-wrapper">
+                            <div class="container">
+                                <div class="row oe_website_sale">
+
+                                    <div class="col-sm-3 collection-filter">
+                                        <!-- side-bar colleps block stat -->
+                                        <div class="collection-filter-block">
+                                            <!-- brand filter start -->
+                                            <div class="collection-mobile-back">
+                                                <span class="filter-back">
+                                                    <i
+                                                            class="fa fa-angle-left" aria-hidden="true"></i>
+                                                    back
+                                                </span>
+                                            </div>
+                                            <form class="js_attributes mb-2" method="get">
+                                                <input t-if="category" type="hidden" name="category"
+                                                       t-att-value="category.id"/>
+                                                <input type="hidden" name="search" t-att-value="search"/>
+                                                <div class="collection-collapse-block open">
+
+                                                    <t t-foreach="attributes" t-as="a">
+                                                        <t t-if="a.value_ids and len(a.value_ids) &gt; 1">
+
+                                                            <h3 class="collapse-block-title">
+                                                                <t t-esc="a.name"/>
+                                                            </h3>
+
+                                                            <t t-if="a.display_type == 'select'">
+                                                                <div class="collection-collapse-block-content">
+                                                                    <div class="collection-brand-filter pt24">
+                                                                        <select class="form-control" name="attrib">
+                                                                            <option value=""/>
+                                                                            <t t-foreach="a.value_ids" t-as="v">
+                                                                                <option t-att-value="'%s-%s' % (a.id,v.id)"
+                                                                                        t-esc="v.name"
+                                                                                        t-att-selected="v.id in attrib_set"/>
+                                                                            </t>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+
+                                                            <t t-if="a.display_type == 'radio'">
+                                                                <div class="collection-collapse-block-content">
+                                                                    <div class="collection-brand-filter">
+                                                                        <t t-foreach="a.value_ids" t-as="v">
+                                                                            <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                                                                <input type="checkbox" name="attrib"
+                                                                                       t-att-value="'%s-%s' % (a.id,v.id)"
+                                                                                       t-att-checked="'checked' if v.id in attrib_set else None"
+                                                                                       class="custom-control-input"
+                                                                                       t-att-id="'%s-%s' % (a.id,v.id)"/>
+                                                                                <label class="custom-control-label"
+                                                                                       t-att-for="'%s-%s' % (a.id,v.id)">
+                                                                                    <t
+                                                                                            t-esc="v.name"/>
+                                                                                </label>
+                                                                            </div>
+                                                                        </t>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+
+                                                            <t t-if="a.display_type == 'color'">
+                                                                <div class="collection-collapse-block-content">
+                                                                    <div class="collection-brand-filter pt24">
+                                                                        <t t-foreach="a.value_ids" t-as="v">
+                                                                            <label t-attf-style="background-color:#{v.html_color or v.name};border-radius: 20px;"
+                                                                                   t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
+                                                                                <input type="checkbox" name="attrib"
+                                                                                       t-att-value="'%s-%s' % (a.id,v.id)"
+                                                                                       t-att-checked="'checked' if v.id in attrib_set else None"
+                                                                                       t-att-title="v.name"/>
+                                                                            </label>
+                                                                        </t>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- silde-bar colleps block end here -->
+                                        <!-- side-bar single product slider start -->
+
+                                        <t t-set="new_products"
+                                           t-value="request.env['product.template'].sudo().search([('is_new_product','=',True)])"/>
+                                        <t t-set="new_products_len"
+                                           t-value="len(request.env['product.template'].sudo().search([('is_new_product','=',True)]))"/>
+                                        <t t-set="for_loop_len" t-value="int((new_products_len/3)+1)"/>
+
+                                        <t t-if="new_products">
+                                            <div class="theme-card">
+                                                <h5 class="title-border">new product</h5>
+                                                <div class="offer-slider slide-1">
+
+                                                    <t t-set="new_product_count" t-value="1"/>
+                                                    <t t-foreach="range(for_loop_len)" t-as="i">
+                                                        <t t-if="new_products_len>=new_product_count">
+                                                            <div>
+                                                                <t t-foreach="range(3)" t-as="j">
+                                                                    <t t-if="new_products_len>=new_product_count">
+                                                                        <div class="media">
+                                                                            <a t-attf-href="/shop/product/#{ slug(new_products[new_product_count-1]) }">
+
+                                                                                <img t-attf-src="/web/image/product.template/#{new_products[new_product_count-1].id}/image_1920"
+                                                                                     class="img-fluid"
+                                                                                     alt="Product image"
+                                                                                />
+                                                                            </a>
+                                                                            <div class="media-body align-self-center">
+                                                                                <a t-attf-href="/shop/product/#{ slug(new_products[new_product_count-1]) }">
+                                                                                    <h6>
+                                                                                        <t t-esc="new_products[new_product_count-1].name"/>
+                                                                                    </h6>
+                                                                                </a>
+                                                                                <h4>
+                                                                                    <t t-esc="new_products[new_product_count-1].currency_id.symbol"/>
+                                                                                    <t t-esc="new_products[new_product_count-1].list_price"/>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                        <t t-set="new_product_count"
+                                                                           t-value="new_product_count+1"/>
+                                                                    </t>
+                                                                </t>
+                                                            </div>
+                                                        </t>
+                                                    </t>
+
+
+                                                </div>
+                                            </div>
+                                        </t>
+
+                                        <!-- side-bar single product slider end -->
+                                    </div>
+
+                                    <div class="collection-content col">
+                                        <div class="page-main-content">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="top-banner-wrapper">
+                                                        <a href="#">
+                                                            <img src="theme_bigboost/static/src/img/about-us.jpg"
+                                                                 class="img-fluid " alt=""/>
+                                                        </a>
+                                                        <div class="top-banner-content small-section">
+                                                            <h5>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry.
+                                                            </h5>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's
+                                                                standard dummy text ever since the 1500s, when an
+                                                                unknown
+                                                                printer took a galley of type and scrambled it to make a
+                                                                type specimen book. It has survived not only five
+                                                                centuries,
+                                                                but also the leap into electronic typesetting, remaining
+                                                                essentially unchanged. It was popularised in the 1960s
+                                                                with
+                                                                the release of Letraset sheets containing Lorem Ipsum
+                                                                passages, and more recently with desktop publishing
+                                                                software
+                                                                like Aldus PageMaker including versions of Lorem Ipsum.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="collection-product-wrapper">
+                                                        <div class="product-top-filter">
+                                                            <div class="row">
+                                                                <div class="col-xl-12">
+                                                                    <div class="filter-main-btn">
+                                                                        <span
+                                                                                class="filter-btn btn btn-solid btn-theme">
+                                                                            <i
+                                                                                    class="fa fa-filter"
+                                                                                    aria-hidden="true"></i>
+                                                                            Filter
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="product-filter-content">
+                                                                        <div class="search-count">
+                                                                            <t t-if="search_count>=(pager['offset']+ppg)">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+ppg"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                        </div>
+                                                                        <div class="collection-view">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <i class="fa fa-th grid-layout-view"></i>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <i class="fa fa-list-ul list-layout-view"></i>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="collection-grid-view">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-2-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-3-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-4-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-6-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="product-page-per-view">
+                                                                            <select id="ppg_shop">
+                                                                                <option value="">Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="24">24 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="50">50 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="100">100 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="product-page-filter">
+                                                                            <select id="sorting_shop">
+                                                                                <option value="/shop">Sorting
+                                                                                    items
+                                                                                </option>
+                                                                                <option value="/shop?order=list_price+desc">
+                                                                                    Price: High to Low
+                                                                                </option>
+                                                                                <option value="/shop?order=list_price+asc">
+                                                                                    Price: Low to High
+                                                                                </option>
+                                                                                <option value="/shop?order=name+asc">
+                                                                                    Name: A to Z
+                                                                                </option>
+                                                                                <option value="/shop?order=name+desc">
+                                                                                    Name: Z to A
+                                                                                </option>
+                                                                                <option value="/shop">
+                                                                                    Remove Filters
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-wrapper-grid">
+                                                            <div class="row">
+                                                                <t t-foreach="products" t-as="product">
+
+                                                                    <div class="col-xl-3 col-md-4 col-6 col-grid-box">
+                                                                        <div class="product-box">
+                                                                            <div class="img-block">
+                                                                                <a t-attf-href="/shop/product/#{ slug(product) }">
+                                                                                    <img t-attf-src="/web/image/product.template/#{product.id}/image_1920"
+                                                                                         class="img-fluid"
+                                                                                         alt="Product image"
+                                                                                         style="height: 183px;"/>
+                                                                                    <!--                                                                                                                                                            <img src="theme_bigboost/static/src/img/2.jpg"-->
+                                                                                    <!--                                                                                                                                                     class="img-fluid " alt=""/>-->
+                                                                                    <!--                                                                            <img-->
+                                                                                    <!--                                                                                src="../assets/images/product/2.jpg"-->
+                                                                                    <!--                                                                                class=" img-fluid bg-img" alt=""/>-->
+                                                                                    <!--                                                                             <img t-att-src="'data:image/png;base64,%s' % to_text(product.image_1920)" class="img-fluid bg-img"/>-->
+                                                                                </a>
+                                                                                <form action="/shop/cart/update"
+                                                                                      method="post">
+                                                                                    <t t-set="product_variant_id"
+                                                                                       t-value="product._get_first_possible_variant_id()"/>
+                                                                                    <input name="product_id"
+                                                                                           t-att-value="product_variant_id"
+                                                                                           type="hidden"/>
+                                                                                    <t t-set="product_variant"
+                                                                                       t-value="product_variant or product._create_first_product_variant()"/>
+                                                                                    <t t-set="in_wish"
+                                                                                       t-value="product_variant and product_variant._is_in_wishlist()"/>
+                                                                                    <div class="cart-details">
+                                                                                        <a href="#" tabindex="0"
+                                                                                           class="addcart-box a-submit"
+                                                                                           title="Add to Cart">
+                                                                                            <i
+                                                                                                    class="ti-shopping-cart"></i>
+                                                                                        </a>
+                                                                                        <a href="#"
+                                                                                           title="Add to Wishlist">
+                                                                                            <i
+                                                                                                    class="ti-heart o_add_wishlist"
+                                                                                                    t-att-data-product-template-id="product.id"
+                                                                                                    t-att-data-product-product-id="product_variant_id"
+                                                                                                    data-action="o_wishlist"
+                                                                                                    aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                        <!--                                                                                <a href="#" data-toggle="modal"-->
+                                                                                        <!--                                                                                   data-target="#quick-view"-->
+                                                                                        <!--                                                                                   title="Quick View"><i-->
+                                                                                        <!--                                                                                        class="ti-search"-->
+                                                                                        <!--                                                                                        aria-hidden="true"></i></a>-->
+                                                                                        <a href="compare.html"
+                                                                                           title="Compare">
+                                                                                            <i
+                                                                                                    class="ti-reload"
+                                                                                                    aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="product-info">
+                                                                                <div>
+                                                                                    <a t-attf-href="/shop/product/#{ slug(product) }">
+                                                                                        <h6>
+                                                                                            <t
+                                                                                                    t-esc="product.name"/>
+                                                                                        </h6>
+                                                                                    </a>
+                                                                                    <p>
+                                                                                        <t t-esc="product.description_sale"/>
+                                                                                    </p>
+                                                                                    <h5>
+                                                                                        <t t-esc="product.currency_id.symbol"/>
+                                                                                        <t
+                                                                                                t-esc="round(product.list_price, 2)"/>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="addtocart_box d-none">
+                                                                                <div class="addtocart_detail">
+                                                                                    <div>
+                                                                                        <div class="color">
+                                                                                            <h5>color</h5>
+                                                                                            <ul class="color-variant">
+                                                                                                <li class="light-purple active"></li>
+                                                                                                <li class="theme-blue"></li>
+                                                                                                <li class="theme-color"></li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="size">
+                                                                                            <h5>size</h5>
+                                                                                            <ul class="size-box">
+                                                                                                <li class="active">xs
+                                                                                                </li>
+                                                                                                <li>s</li>
+                                                                                                <li>m</li>
+                                                                                                <li>l</li>
+                                                                                                <li>xl</li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="addtocart_btn">
+                                                                                            <a href="javascript:void(0)"
+                                                                                               data-toggle="modal"
+                                                                                               class="closeCartbox"
+                                                                                               data-target="#addtocart"
+                                                                                               tabindex="0">add to cart
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="close-cart">
+                                                                                    <i class="fa fa-times"
+                                                                                       aria-hidden="true"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </t>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-pagination mb-2">
+                                                            <div class="theme-paggination-block">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                                        <!--                                                                    <div class="products_pager form-inline justify-content-center mt-3">-->
+                                                                        <t t-call="website.pager"/>
+                                                                        <!--                                                                    </div>-->
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                                        <div class="product-search-count-bottom">
+                                                                            <t t-if="search_count>=(pager['offset']+ppg)">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+ppg"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="container oe_website_sale">
+                        <div class="products_pager form-inline flex-md-nowrap justify-content-between justify-content-md-center">
+                            <t t-call="website_sale.search">
+                                <t t-set="_classes">w-100 w-md-auto mt-2</t>
+                            </t>
+                            <t t-call="website_sale.pricelist_list">
+                                <t t-set="_classes">mt-2 ml-md-2</t>
+                            </t>
+                            <t t-call="website.pager">
+                                <t t-set="_classes">mt-2 ml-md-2</t>
+                            </t>
+                        </div>
+
+                        <div class="row o_wsale_products_main_row">
+                            <div t-if="enable_left_column" id="products_grid_before" class="col-lg-3"/>
+                            <div id="products_grid"
+                                 t-attf-class="col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">
+                                <t t-if="category">
+                                    <t t-set='editor_msg'>Drag building blocks here to customize the header for "<t
+                                            t-esc='category.name'/>" category.
+                                    </t>
+                                    <div class="mb16" id="category_header" t-att-data-editor-message="editor_msg"
+                                         t-field="category.website_description"/>
+                                </t>
+                                <div t-if="bins" class="o_wsale_products_grid_table_wrapper">
+                                    <table class="table table-borderless m-0" t-att-data-ppg="ppg" t-att-data-ppr="ppr">
+                                        <colgroup t-ignore="true">
+                                            <!-- Force the number of columns (useful when only one row of (x < ppr) products) -->
+                                            <col t-foreach="ppr" t-as="p"/>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr t-foreach="bins" t-as="tr_product">
+                                                <t t-foreach="tr_product" t-as="td_product">
+                                                    <t t-if="td_product">
+                                                        <t t-set="product" t-value="td_product['product']"/>
+                                                        <td t-att-colspan="td_product['x'] != 1 and td_product['x']"
+                                                            t-att-rowspan="td_product['y'] != 1 and td_product['y']"
+                                                            t-attf-class="oe_product #{td_product['class']}">
+                                                            <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">
+                                                                <t t-call="website_sale.products_item">
+                                                                    <t t-set="product_image_big"
+                                                                       t-value="td_product['x'] + td_product['y'] &gt; 2"/>
+                                                                </t>
+                                                            </div>
+                                                        </td>
+                                                    </t>
+                                                    <td t-else=""/>
+                                                </t>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <t t-else="">
+                                    <div class="text-center text-muted">
+                                        <t t-if="not search">
+                                            <h3 class="mt8">No product defined</h3>
+                                            <p t-if="category">No product defined in category "<strong
+                                                    t-esc="category.display_name"/>".
+                                            </p>
+                                        </t>
+                                        <t t-else="">
+                                            <h3 class="mt8">No results</h3>
+                                            <p>No results for "<strong t-esc='search'/>"
+                                                <t t-if="category">in category "<strong t-esc="category.display_name"/>"
+                                                </t>
+                                                .
+                                            </p>
+                                        </t>
+                                        <p t-ignore="true" groups="sales_team.group_sale_manager">Click <i>'New'</i> in
+                                            the
+                                            top-right corner to create your first product.
+                                        </p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <!--                    <div class="products_pager form-inline justify-content-center mt-3">-->
+                        <!--                        <t t-call="website.pager"/>-->
+                        <!--                    </div>-->
+                    </div>
+                </t>
+
+                <t t-if="shop_style == 'style_2'">
+                    <section class="section-b-space ratio_square">
+                        <div class="collection-wrapper">
+                            <div class="container">
+                                <div class="row oe_website_sale">
+
+                                    <div class="collection-content col">
+                                        <div class="page-main-content">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="top-banner-wrapper">
+                                                        <a href="#">
+                                                            <img src="theme_bigboost/static/src/img/about-us.jpg"
+                                                                 class="img-fluid " alt=""/>
+                                                        </a>
+                                                        <div class="top-banner-content small-section">
+                                                            <h5>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry.
+                                                            </h5>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's
+                                                                standard dummy text ever since the 1500s, when an
+                                                                unknown
+                                                                printer took a galley of type and scrambled it to make a
+                                                                type specimen book. It has survived not only five
+                                                                centuries,
+                                                                but also the leap into electronic typesetting, remaining
+                                                                essentially unchanged. It was popularised in the 1960s
+                                                                with
+                                                                the release of Letraset sheets containing Lorem Ipsum
+                                                                passages, and more recently with desktop publishing
+                                                                software
+                                                                like Aldus PageMaker including versions of Lorem Ipsum.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="collection-product-wrapper">
+                                                        <div class="product-top-filter">
+                                                            <div class="row">
+                                                                <div class="col-xl-12">
+                                                                    <div class="filter-main-btn">
+                                                                        <span
+                                                                                class="filter-btn btn btn-solid btn-theme">
+                                                                            <i
+                                                                                    class="fa fa-filter"
+                                                                                    aria-hidden="true"></i>
+                                                                            Filter
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="product-filter-content">
+                                                                        <div class="search-count">
+                                                                            <t t-if="search_count>=(pager['offset']+ppg)">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+ppg"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                        </div>
+                                                                        <div class="collection-view">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <i class="fa fa-th grid-layout-view"></i>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <i class="fa fa-list-ul list-layout-view"></i>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="collection-grid-view">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-2-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-3-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-4-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-6-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="product-page-per-view">
+                                                                            <select id="ppg_shop">
+                                                                                <option value="">Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="24">24 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="50">50 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="100">100 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="product-page-filter">
+                                                                            <select id="sorting_shop">
+                                                                                <option value="/shop">Sorting
+                                                                                    items
+                                                                                </option>
+                                                                                <option value="/shop?order=list_price+desc">
+                                                                                    Price: High to Low
+                                                                                </option>
+                                                                                <option value="/shop?order=list_price+asc">
+                                                                                    Price: Low to High
+                                                                                </option>
+                                                                                <option value="/shop?order=name+asc">
+                                                                                    Name: A to Z
+                                                                                </option>
+                                                                                <option value="/shop?order=name+desc">
+                                                                                    Name: Z to A
+                                                                                </option>
+                                                                                <option value="/shop">
+                                                                                    Remove Filters
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-wrapper-grid">
+                                                            <div class="row">
+                                                                <t t-foreach="products" t-as="product">
+
+                                                                    <div class="col-xl-3 col-md-4 col-6 col-grid-box">
+                                                                        <div class="product-box">
+                                                                            <div class="img-block">
+                                                                                <a t-attf-href="/shop/product/#{ slug(product) }">
+                                                                                    <img t-attf-src="/web/image/product.template/#{product.id}/image_1920"
+                                                                                         class="img-fluid"
+                                                                                         alt="Product image"
+                                                                                         style="height: 183px;"/>
+                                                                                    <!--                                                                                                                                                            <img src="theme_bigboost/static/src/img/2.jpg"-->
+                                                                                    <!--                                                                                                                                                     class="img-fluid " alt=""/>-->
+                                                                                    <!--                                                                            <img-->
+                                                                                    <!--                                                                                src="../assets/images/product/2.jpg"-->
+                                                                                    <!--                                                                                class=" img-fluid bg-img" alt=""/>-->
+                                                                                    <!--                                                                             <img t-att-src="'data:image/png;base64,%s' % to_text(product.image_1920)" class="img-fluid bg-img"/>-->
+                                                                                </a>
+                                                                                <form action="/shop/cart/update"
+                                                                                      method="post">
+                                                                                    <t t-set="product_variant_id"
+                                                                                       t-value="product._get_first_possible_variant_id()"/>
+                                                                                    <input name="product_id"
+                                                                                           t-att-value="product_variant_id"
+                                                                                           type="hidden"/>
+                                                                                    <t t-set="product_variant"
+                                                                                       t-value="product_variant or product._create_first_product_variant()"/>
+                                                                                    <t t-set="in_wish"
+                                                                                       t-value="product_variant and product_variant._is_in_wishlist()"/>
+                                                                                    <div class="cart-details">
+                                                                                        <a href="#" tabindex="0"
+                                                                                           class="addcart-box a-submit"
+                                                                                           title="Add to Cart">
+                                                                                            <i
+                                                                                                    class="ti-shopping-cart"></i>
+                                                                                        </a>
+                                                                                        <a href="#"
+                                                                                           title="Add to Wishlist">
+                                                                                            <i
+                                                                                                    class="ti-heart o_add_wishlist"
+                                                                                                    t-att-data-product-template-id="product.id"
+                                                                                                    t-att-data-product-product-id="product_variant_id"
+                                                                                                    data-action="o_wishlist"
+                                                                                                    aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                        <!--                                                                                <a href="#" data-toggle="modal"-->
+                                                                                        <!--                                                                                   data-target="#quick-view"-->
+                                                                                        <!--                                                                                   title="Quick View"><i-->
+                                                                                        <!--                                                                                        class="ti-search"-->
+                                                                                        <!--                                                                                        aria-hidden="true"></i></a>-->
+                                                                                        <a href="compare.html"
+                                                                                           title="Compare">
+                                                                                            <i
+                                                                                                    class="ti-reload"
+                                                                                                    aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="product-info">
+                                                                                <div>
+                                                                                    <a t-attf-href="/shop/product/#{ slug(product) }">
+                                                                                        <h6>
+                                                                                            <t
+                                                                                                    t-esc="product.name"/>
+                                                                                        </h6>
+                                                                                    </a>
+                                                                                    <p>
+                                                                                        <t t-esc="product.description_sale"/>
+                                                                                    </p>
+                                                                                    <h5>
+                                                                                        <t t-esc="product.currency_id.symbol"/>
+                                                                                        <t
+                                                                                                t-esc="round(product.list_price, 2)"/>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="addtocart_box d-none">
+                                                                                <div class="addtocart_detail">
+                                                                                    <div>
+                                                                                        <div class="color">
+                                                                                            <h5>color</h5>
+                                                                                            <ul class="color-variant">
+                                                                                                <li class="light-purple active"></li>
+                                                                                                <li class="theme-blue"></li>
+                                                                                                <li class="theme-color"></li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="size">
+                                                                                            <h5>size</h5>
+                                                                                            <ul class="size-box">
+                                                                                                <li class="active">xs
+                                                                                                </li>
+                                                                                                <li>s</li>
+                                                                                                <li>m</li>
+                                                                                                <li>l</li>
+                                                                                                <li>xl</li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="addtocart_btn">
+                                                                                            <a href="javascript:void(0)"
+                                                                                               data-toggle="modal"
+                                                                                               class="closeCartbox"
+                                                                                               data-target="#addtocart"
+                                                                                               tabindex="0">add to cart
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="close-cart">
+                                                                                    <i class="fa fa-times"
+                                                                                       aria-hidden="true"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </t>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-pagination mb-2">
+                                                            <div class="theme-paggination-block">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                                        <!--                                                                    <div class="products_pager form-inline justify-content-center mt-3">-->
+                                                                        <t t-call="website.pager"/>
+                                                                        <!--                                                                    </div>-->
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                                        <div class="product-search-count-bottom">
+                                                                            <t t-if="search_count>=(pager['offset']+ppg)">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+ppg"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3 collection-filter">
+                                        <!-- side-bar colleps block stat -->
+                                        <div class="collection-filter-block">
+                                            <!-- brand filter start -->
+                                            <div class="collection-mobile-back">
+                                                <span class="filter-back">
+                                                    <i
+                                                            class="fa fa-angle-left" aria-hidden="true"></i>
+                                                    back
+                                                </span>
+                                            </div>
+                                            <form class="js_attributes mb-2" method="get">
+                                                <input t-if="category" type="hidden" name="category"
+                                                       t-att-value="category.id"/>
+                                                <input type="hidden" name="search" t-att-value="search"/>
+                                                <div class="collection-collapse-block open">
+
+                                                    <t t-foreach="attributes" t-as="a">
+                                                        <t t-if="a.value_ids and len(a.value_ids) &gt; 1">
+
+                                                            <h3 class="collapse-block-title">
+                                                                <t t-esc="a.name"/>
+                                                            </h3>
+
+                                                            <t t-if="a.display_type == 'select'">
+                                                                <div class="collection-collapse-block-content">
+                                                                    <div class="collection-brand-filter pt24">
+                                                                        <select class="form-control" name="attrib">
+                                                                            <option value=""/>
+                                                                            <t t-foreach="a.value_ids" t-as="v">
+                                                                                <option t-att-value="'%s-%s' % (a.id,v.id)"
+                                                                                        t-esc="v.name"
+                                                                                        t-att-selected="v.id in attrib_set"/>
+                                                                            </t>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+
+                                                            <t t-if="a.display_type == 'radio'">
+                                                                <div class="collection-collapse-block-content">
+                                                                    <div class="collection-brand-filter">
+                                                                        <t t-foreach="a.value_ids" t-as="v">
+                                                                            <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                                                                <input type="checkbox" name="attrib"
+                                                                                       t-att-value="'%s-%s' % (a.id,v.id)"
+                                                                                       t-att-checked="'checked' if v.id in attrib_set else None"
+                                                                                       class="custom-control-input"
+                                                                                       t-att-id="'%s-%s' % (a.id,v.id)"/>
+                                                                                <label class="custom-control-label"
+                                                                                       t-att-for="'%s-%s' % (a.id,v.id)">
+                                                                                    <t
+                                                                                            t-esc="v.name"/>
+                                                                                </label>
+                                                                            </div>
+                                                                        </t>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+
+                                                            <t t-if="a.display_type == 'color'">
+                                                                <div class="collection-collapse-block-content">
+                                                                    <div class="collection-brand-filter pt24">
+                                                                        <t t-foreach="a.value_ids" t-as="v">
+                                                                            <label t-attf-style="background-color:#{v.html_color or v.name};border-radius: 20px;"
+                                                                                   t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
+                                                                                <input type="checkbox" name="attrib"
+                                                                                       t-att-value="'%s-%s' % (a.id,v.id)"
+                                                                                       t-att-checked="'checked' if v.id in attrib_set else None"
+                                                                                       t-att-title="v.name"/>
+                                                                            </label>
+                                                                        </t>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- silde-bar colleps block end here -->
+                                        <!-- side-bar single product slider start -->
+
+                                        <t t-set="new_products"
+                                           t-value="request.env['product.template'].sudo().search([('is_new_product','=',True)])"/>
+                                        <t t-set="new_products_len"
+                                           t-value="len(request.env['product.template'].sudo().search([('is_new_product','=',True)]))"/>
+                                        <t t-set="for_loop_len" t-value="int((new_products_len/3)+1)"/>
+
+                                        <t t-if="new_products">
+                                            <div class="theme-card">
+                                                <h5 class="title-border">new product</h5>
+                                                <div class="offer-slider slide-1">
+
+                                                    <t t-set="new_product_count" t-value="1"/>
+                                                    <t t-foreach="range(for_loop_len)" t-as="i">
+                                                        <t t-if="new_products_len>=new_product_count">
+                                                            <div>
+                                                                <t t-foreach="range(3)" t-as="j">
+                                                                    <t t-if="new_products_len>=new_product_count">
+                                                                        <div class="media">
+                                                                            <a t-attf-href="/shop/product/#{ slug(new_products[new_product_count-1]) }">
+
+                                                                                <img t-attf-src="/web/image/product.template/#{new_products[new_product_count-1].id}/image_1920"
+                                                                                     class="img-fluid"
+                                                                                     alt="Product image"
+                                                                                />
+                                                                            </a>
+                                                                            <div class="media-body align-self-center">
+                                                                                <a t-attf-href="/shop/product/#{ slug(new_products[new_product_count-1]) }">
+                                                                                    <h6>
+                                                                                        <t t-esc="new_products[new_product_count-1].name"/>
+                                                                                    </h6>
+                                                                                </a>
+                                                                                <h4>
+                                                                                    <t t-esc="new_products[new_product_count-1].currency_id.symbol"/>
+                                                                                    <t t-esc="new_products[new_product_count-1].list_price"/>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                        <t t-set="new_product_count"
+                                                                           t-value="new_product_count+1"/>
+                                                                    </t>
+                                                                </t>
+                                                            </div>
+                                                        </t>
+                                                    </t>
+
+
+                                                </div>
+                                            </div>
+                                        </t>
+
+                                        <!-- side-bar single product slider end -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="container oe_website_sale">
+                        <div class="products_pager form-inline flex-md-nowrap justify-content-between justify-content-md-center">
+                            <t t-call="website_sale.search">
+                                <t t-set="_classes">w-100 w-md-auto mt-2</t>
+                            </t>
+                            <t t-call="website_sale.pricelist_list">
+                                <t t-set="_classes">mt-2 ml-md-2</t>
+                            </t>
+                            <t t-call="website.pager">
+                                <t t-set="_classes">mt-2 ml-md-2</t>
+                            </t>
+                        </div>
+
+                        <div class="row o_wsale_products_main_row">
+                            <div t-if="enable_left_column" id="products_grid_before" class="col-lg-3"/>
+                            <div id="products_grid"
+                                 t-attf-class="col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">
+                                <t t-if="category">
+                                    <t t-set='editor_msg'>Drag building blocks here to customize the header for "<t
+                                            t-esc='category.name'/>" category.
+                                    </t>
+                                    <div class="mb16" id="category_header" t-att-data-editor-message="editor_msg"
+                                         t-field="category.website_description"/>
+                                </t>
+                                <div t-if="bins" class="o_wsale_products_grid_table_wrapper">
+                                    <table class="table table-borderless m-0" t-att-data-ppg="ppg" t-att-data-ppr="ppr">
+                                        <colgroup t-ignore="true">
+                                            <!-- Force the number of columns (useful when only one row of (x < ppr) products) -->
+                                            <col t-foreach="ppr" t-as="p"/>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr t-foreach="bins" t-as="tr_product">
+                                                <t t-foreach="tr_product" t-as="td_product">
+                                                    <t t-if="td_product">
+                                                        <t t-set="product" t-value="td_product['product']"/>
+                                                        <td t-att-colspan="td_product['x'] != 1 and td_product['x']"
+                                                            t-att-rowspan="td_product['y'] != 1 and td_product['y']"
+                                                            t-attf-class="oe_product #{td_product['class']}">
+                                                            <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">
+                                                                <t t-call="website_sale.products_item">
+                                                                    <t t-set="product_image_big"
+                                                                       t-value="td_product['x'] + td_product['y'] &gt; 2"/>
+                                                                </t>
+                                                            </div>
+                                                        </td>
+                                                    </t>
+                                                    <td t-else=""/>
+                                                </t>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <t t-else="">
+                                    <div class="text-center text-muted">
+                                        <t t-if="not search">
+                                            <h3 class="mt8">No product defined</h3>
+                                            <p t-if="category">No product defined in category "<strong
+                                                    t-esc="category.display_name"/>".
+                                            </p>
+                                        </t>
+                                        <t t-else="">
+                                            <h3 class="mt8">No results</h3>
+                                            <p>No results for "<strong t-esc='search'/>"
+                                                <t t-if="category">in category "<strong t-esc="category.display_name"/>"
+                                                </t>
+                                                .
+                                            </p>
+                                        </t>
+                                        <p t-ignore="true" groups="sales_team.group_sale_manager">Click <i>'New'</i> in
+                                            the
+                                            top-right corner to create your first product.
+                                        </p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <!--                    <div class="products_pager form-inline justify-content-center mt-3">-->
+                        <!--                        <t t-call="website.pager"/>-->
+                        <!--                    </div>-->
+                    </div>
+                </t>
+
+                <t t-if="shop_style == 'style_3'">
+                    <section class="section-b-space ratio_square">
+                        <div class="collection-wrapper">
+                            <div class="container">
+                                <div class="row oe_website_sale">
+
+                                    <div class="collection-content col">
+                                        <div class="page-main-content">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="top-banner-wrapper">
+                                                        <a href="#">
+                                                            <img src="theme_bigboost/static/src/img/about-us.jpg"
+                                                                 class="img-fluid " alt=""/>
+                                                        </a>
+                                                        <div class="top-banner-content small-section">
+                                                            <h5>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry.
+                                                            </h5>
+                                                            <p>Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's
+                                                                standard dummy text ever since the 1500s, when an
+                                                                unknown
+                                                                printer took a galley of type and scrambled it to make a
+                                                                type specimen book. It has survived not only five
+                                                                centuries,
+                                                                but also the leap into electronic typesetting, remaining
+                                                                essentially unchanged. It was popularised in the 1960s
+                                                                with
+                                                                the release of Letraset sheets containing Lorem Ipsum
+                                                                passages, and more recently with desktop publishing
+                                                                software
+                                                                like Aldus PageMaker including versions of Lorem Ipsum.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="collection-product-wrapper">
+                                                        <div class="product-top-filter">
+                                                            <div class="row">
+                                                                <div class="col-xl-12">
+                                                                    <div class="filter-main-btn">
+                                                                        <span
+                                                                                class="filter-btn btn btn-solid btn-theme">
+                                                                            <i
+                                                                                    class="fa fa-filter"
+                                                                                    aria-hidden="true"></i>
+                                                                            Filter
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="product-filter-content">
+                                                                        <div class="search-count">
+                                                                            <t t-if="search_count>=(pager['offset']+ppg)">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+ppg"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                        </div>
+                                                                        <div class="collection-view">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <i class="fa fa-th grid-layout-view"></i>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <i class="fa fa-list-ul list-layout-view"></i>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="collection-grid-view">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-2-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-3-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-4-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:void(0)"
+                                                                                       class="product-6-layout-view">
+                                                                                        <ul
+                                                                                                class="filter-select">
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                            <li></li>
+                                                                                        </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="product-page-per-view">
+                                                                            <select id="ppg_shop">
+                                                                                <option value="">Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="24">24 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="50">50 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                                <option value="100">100 Products Par
+                                                                                    Page
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="product-page-filter">
+                                                                            <select id="sorting_shop">
+                                                                                <option value="/shop">Sorting
+                                                                                    items
+                                                                                </option>
+                                                                                <option value="/shop?order=list_price+desc">
+                                                                                    Price: High to Low
+                                                                                </option>
+                                                                                <option value="/shop?order=list_price+asc">
+                                                                                    Price: Low to High
+                                                                                </option>
+                                                                                <option value="/shop?order=name+asc">
+                                                                                    Name: A to Z
+                                                                                </option>
+                                                                                <option value="/shop?order=name+desc">
+                                                                                    Name: Z to A
+                                                                                </option>
+                                                                                <option value="/shop">
+                                                                                    Remove Filters
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-wrapper-grid">
+                                                            <div class="row">
+                                                                <t t-foreach="products" t-as="product">
+
+                                                                    <div class="col-xl-3 col-md-4 col-6 col-grid-box">
+                                                                        <div class="product-box">
+                                                                            <div class="img-block">
+                                                                                <a t-attf-href="/shop/product/#{ slug(product) }">
+                                                                                    <img t-attf-src="/web/image/product.template/#{product.id}/image_1920"
+                                                                                         class="img-fluid"
+                                                                                         alt="Product image"
+                                                                                         style="height: 183px;"/>
+                                                                                    <!--                                                                                                                                                            <img src="theme_bigboost/static/src/img/2.jpg"-->
+                                                                                    <!--                                                                                                                                                     class="img-fluid " alt=""/>-->
+                                                                                    <!--                                                                            <img-->
+                                                                                    <!--                                                                                src="../assets/images/product/2.jpg"-->
+                                                                                    <!--                                                                                class=" img-fluid bg-img" alt=""/>-->
+                                                                                    <!--                                                                             <img t-att-src="'data:image/png;base64,%s' % to_text(product.image_1920)" class="img-fluid bg-img"/>-->
+                                                                                </a>
+                                                                                <form action="/shop/cart/update"
+                                                                                      method="post">
+                                                                                    <t t-set="product_variant_id"
+                                                                                       t-value="product._get_first_possible_variant_id()"/>
+                                                                                    <input name="product_id"
+                                                                                           t-att-value="product_variant_id"
+                                                                                           type="hidden"/>
+                                                                                    <t t-set="product_variant"
+                                                                                       t-value="product_variant or product._create_first_product_variant()"/>
+                                                                                    <t t-set="in_wish"
+                                                                                       t-value="product_variant and product_variant._is_in_wishlist()"/>
+                                                                                    <div class="cart-details">
+                                                                                        <a href="#" tabindex="0"
+                                                                                           class="addcart-box a-submit"
+                                                                                           title="Add to Cart">
+                                                                                            <i
+                                                                                                    class="ti-shopping-cart"></i>
+                                                                                        </a>
+                                                                                        <a href="#"
+                                                                                           title="Add to Wishlist">
+                                                                                            <i
+                                                                                                    class="ti-heart o_add_wishlist"
+                                                                                                    t-att-data-product-template-id="product.id"
+                                                                                                    t-att-data-product-product-id="product_variant_id"
+                                                                                                    data-action="o_wishlist"
+                                                                                                    aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                        <!--                                                                                <a href="#" data-toggle="modal"-->
+                                                                                        <!--                                                                                   data-target="#quick-view"-->
+                                                                                        <!--                                                                                   title="Quick View"><i-->
+                                                                                        <!--                                                                                        class="ti-search"-->
+                                                                                        <!--                                                                                        aria-hidden="true"></i></a>-->
+                                                                                        <a href="compare.html"
+                                                                                           title="Compare">
+                                                                                            <i
+                                                                                                    class="ti-reload"
+                                                                                                    aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="product-info">
+                                                                                <div>
+                                                                                    <a t-attf-href="/shop/product/#{ slug(product) }">
+                                                                                        <h6>
+                                                                                            <t
+                                                                                                    t-esc="product.name"/>
+                                                                                        </h6>
+                                                                                    </a>
+                                                                                    <p>
+                                                                                        <t t-esc="product.description_sale"/>
+                                                                                    </p>
+                                                                                    <h5>
+                                                                                        <t t-esc="product.currency_id.symbol"/>
+                                                                                        <t
+                                                                                                t-esc="round(product.list_price, 2)"/>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="addtocart_box d-none">
+                                                                                <div class="addtocart_detail">
+                                                                                    <div>
+                                                                                        <div class="color">
+                                                                                            <h5>color</h5>
+                                                                                            <ul class="color-variant">
+                                                                                                <li class="light-purple active"></li>
+                                                                                                <li class="theme-blue"></li>
+                                                                                                <li class="theme-color"></li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="size">
+                                                                                            <h5>size</h5>
+                                                                                            <ul class="size-box">
+                                                                                                <li class="active">xs
+                                                                                                </li>
+                                                                                                <li>s</li>
+                                                                                                <li>m</li>
+                                                                                                <li>l</li>
+                                                                                                <li>xl</li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="addtocart_btn">
+                                                                                            <a href="javascript:void(0)"
+                                                                                               data-toggle="modal"
+                                                                                               class="closeCartbox"
+                                                                                               data-target="#addtocart"
+                                                                                               tabindex="0">add to cart
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="close-cart">
+                                                                                    <i class="fa fa-times"
+                                                                                       aria-hidden="true"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </t>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-pagination mb-2">
+                                                            <div class="theme-paggination-block">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                                        <!--                                                                    <div class="products_pager form-inline justify-content-center mt-3">-->
+                                                                        <t t-call="website.pager"/>
+                                                                        <!--                                                                    </div>-->
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-md-6 col-sm-12">
+                                                                        <div class="product-search-count-bottom">
+                                                                            <t t-if="search_count>=(pager['offset']+ppg)">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+ppg"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <h5>Showing Products
+                                                                                    <t
+                                                                                            t-esc="pager['offset']+1"/>
+                                                                                    -
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    of
+                                                                                    <t
+                                                                                            t-esc="search_count"/>
+                                                                                    Result
+                                                                                </h5>
+                                                                            </t>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="container oe_website_sale">
+                        <div class="products_pager form-inline flex-md-nowrap justify-content-between justify-content-md-center">
+                            <t t-call="website_sale.search">
+                                <t t-set="_classes">w-100 w-md-auto mt-2</t>
+                            </t>
+                            <t t-call="website_sale.pricelist_list">
+                                <t t-set="_classes">mt-2 ml-md-2</t>
+                            </t>
+                            <t t-call="website.pager">
+                                <t t-set="_classes">mt-2 ml-md-2</t>
+                            </t>
+                        </div>
+
+                        <div class="row o_wsale_products_main_row">
+                            <div t-if="enable_left_column" id="products_grid_before" class="col-lg-3"/>
+                            <div id="products_grid"
+                                 t-attf-class="col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">
+                                <t t-if="category">
+                                    <t t-set='editor_msg'>Drag building blocks here to customize the header for "<t
+                                            t-esc='category.name'/>" category.
+                                    </t>
+                                    <div class="mb16" id="category_header" t-att-data-editor-message="editor_msg"
+                                         t-field="category.website_description"/>
+                                </t>
+                                <div t-if="bins" class="o_wsale_products_grid_table_wrapper">
+                                    <table class="table table-borderless m-0" t-att-data-ppg="ppg" t-att-data-ppr="ppr">
+                                        <colgroup t-ignore="true">
+                                            <!-- Force the number of columns (useful when only one row of (x < ppr) products) -->
+                                            <col t-foreach="ppr" t-as="p"/>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr t-foreach="bins" t-as="tr_product">
+                                                <t t-foreach="tr_product" t-as="td_product">
+                                                    <t t-if="td_product">
+                                                        <t t-set="product" t-value="td_product['product']"/>
+                                                        <td t-att-colspan="td_product['x'] != 1 and td_product['x']"
+                                                            t-att-rowspan="td_product['y'] != 1 and td_product['y']"
+                                                            t-attf-class="oe_product #{td_product['class']}">
+                                                            <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">
+                                                                <t t-call="website_sale.products_item">
+                                                                    <t t-set="product_image_big"
+                                                                       t-value="td_product['x'] + td_product['y'] &gt; 2"/>
+                                                                </t>
+                                                            </div>
+                                                        </td>
+                                                    </t>
+                                                    <td t-else=""/>
+                                                </t>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <t t-else="">
+                                    <div class="text-center text-muted">
+                                        <t t-if="not search">
+                                            <h3 class="mt8">No product defined</h3>
+                                            <p t-if="category">No product defined in category "<strong
+                                                    t-esc="category.display_name"/>".
+                                            </p>
+                                        </t>
+                                        <t t-else="">
+                                            <h3 class="mt8">No results</h3>
+                                            <p>No results for "<strong t-esc='search'/>"
+                                                <t t-if="category">in category "<strong t-esc="category.display_name"/>"
+                                                </t>
+                                                .
+                                            </p>
+                                        </t>
+                                        <p t-ignore="true" groups="sales_team.group_sale_manager">Click <i>'New'</i> in
+                                            the
+                                            top-right corner to create your first product.
+                                        </p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <!--                    <div class="products_pager form-inline justify-content-center mt-3">-->
+                        <!--                        <t t-call="website.pager"/>-->
+                        <!--                    </div>-->
+                    </div>
+                </t>
+
+                <div class="oe_structure mb32 d-none" id="oe_structure_website_sale_products_2"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="website_sale.products_categories" inherit_id="website_sale.products" active="False"
+              customize_show="True" name="eCommerce Categories">
+        <xpath expr="//div[@id='products_grid_before']" position="before">
+            <t t-set="enable_left_column" t-value="True"/>
+        </xpath>
+        <xpath expr="//div[@id='products_grid_before']" position="inside">
+            <button type="button" class="btn btn-link d-lg-none"
+                    data-target="#wsale_products_categories_collapse" data-toggle="collapse">
+                Show categories
+            </button>
+            <div class="collapse d-lg-block" id="wsale_products_categories_collapse">
+                <ul class="nav nav-pills flex-column mb-2">
+                    <li class="nav-item">
+                        <a t-att-href="keep('/shop', category=0)"
+                           t-attf-class="nav-link #{'' if category else 'active'} o_not_editable">All Products
+                        </a>
+                    </li>
+                    <t t-foreach="categories" t-as="c">
+                        <t t-call="website_sale.categories_recursive"/>
+                    </t>
+                </ul>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

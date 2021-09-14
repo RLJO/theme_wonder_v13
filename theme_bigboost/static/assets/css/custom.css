@@ -1,0 +1,22 @@
+.te_header_offer_top, .te_header_offer_top section{
+    padding-top: 0 !important;
+}
+/*
+.btn{
+    border-radius: 25px;
+}*/
+.td-price-total{
+    width: 87%;
+    font-size: 15px;
+    padding-right: 10px;
+    text-transform: capitalize;
+    font-weight: 700;
+    text-align: right;
+}
+#wrapwrap.o_portal {
+    background-color: white !important;
+    color: #212529;
+}
+.js_blog website_blog .navbar{
+    display: none !important;
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="blog_post_form_view" model="ir.ui.view">
+        <field name="name">blog.post.form.view</field>
+        <field name="model">blog.post</field>
+        <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='blog_id']" position="before">
+                <field name='image'/>
+                <field name='is_popular_blog'/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='seo']" position="after">
+                <page name="blog_comment" string="Blog Customer Comments">
+                    <group>
+                        <field name='blog_comment_ids'>
+                            <tree editable='bottom'>
+                                <field name='date'/>
+                                <field name='name'/>
+                                <field name='email'/>
+                                <field name='comment'/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

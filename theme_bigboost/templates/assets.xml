@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="theme_assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="link[last()]" position="after">
+            <!-- SCSS LOAD -->
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/src/scss/custom.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/src/scss/mixins.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/src/scss/snippets.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/src/scss/customise_option.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/src/scss/layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/src/scss/megamenu.scss"/>
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color1.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color2.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color3.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color4.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color5.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color6.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color7.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color8.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color9.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color10.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color11.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color12.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/landing_page.scss" />-->
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/slick.scss" />
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/slick-theme.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify.scss" />-->
+            <!-- bootstrap Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_alert.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_badge.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_breadcrumb.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_buttons.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_card.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_carousel.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_close.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_code.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_custom-forms.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_dropdown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_forms.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_functions.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_grid.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_images.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_input-group.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_jumbotron.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_list-group.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_media.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_mixins.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_modal.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_nav.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_navbar.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_pagination.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_popover.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_print.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_progress.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_reboot.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_root.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_tables.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_tooltip.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_transitions.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_type.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_utilities.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/_variables.scss" />-->
+            <!-- bootstrap/mixins Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_alert.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_background-variant.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_badge.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_border-radius.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_box-shadow.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_breakpoints.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_buttons.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_caret.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_clearfix.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_float.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_forms.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_gradients.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_grid.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_grid-framework.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_hover.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_image.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_list-group.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_lists.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_nav-divider.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_pagination.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_reset-text.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_resize.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_screen-reader.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_size.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_table-row.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_text-emphasis.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_text-hide.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_text-truncate.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_transition.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/mixins/_visibility.scss" />-->
+            <!-- bootstrap/utilities Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_align.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_background.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_borders.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_clearfix.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_display.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_embed.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_flex.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_float.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_position.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_screenreaders.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_shadows.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_sizing.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_spacing.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_text.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/bootstrap/utilities/_visibility.scss" />-->
+            <!-- animate Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_properties.scss" />-->
+            <!-- animate/_attention-seekers Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_bounce.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_flash.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_jello.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_pulse.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_rubberBand.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_shake.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_swing.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_tada.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_wobble.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_attention-seekers/_attention-seekers.scss" />-->
+            <!-- animate/_bouncing-entrances Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-entrances/_bounceIn.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-entrances/_bounceInDown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-entrances/_bounceInLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-entrances/_bounceInRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-entrances/_bounceInUp.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-entrances/_bouncing-entrances.scss" />-->
+            <!-- animate/_bouncing-exits Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-exits/_bounceOut.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-exits/_bounceOutDown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-exits/_bounceOutLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-exits/_bounceOutRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-exits/_bounceOutUp.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_bouncing-exits/_bouncing-exits.scss" />-->
+            <!-- animate/_fading-entrances Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeIn.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeInDown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeInDownBig.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeInLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeInLeftBig.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeInRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeInRightBig.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeInUp.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fadeInUpBig.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-entrances/_fading-entrances.scss" />-->
+            <!-- animate/_fading-exits Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fadeOut.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fadeOutDown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fadeOutDownBig.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fadeOutLeftBig.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fadeOutRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fadeOutRightBig.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fadeOutUp.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fadeOutUpBig.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_fading-exits/_fading-exits.scss.scss" />-->
+            <!-- animate/_flippers Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_flippers/_flip.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_flippers/_flipInX.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_flippers/_flipInY.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_flippers/_flipOutX.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_flippers/_flipOutY.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_flippers/_flippers.scss" />-->
+            <!-- animate/_lightspeed Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_lightspeed/_lightspeed.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_lightspeed/_lightSpeedIn.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_lightspeed/_lightSpeedOut.scss" />-->
+            <!-- animate/_rotating-entrances Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-entrances/_rotateIn.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-entrances/_rotateInDownLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-entrances/_rotateInDownRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-entrances/_rotateInUpLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-entrances/_rotateInUpRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-entrances/_rotating-entrances.scss" />-->
+<!--            &lt;!&ndash; animate/_rotating-exits Folder &ndash;&gt;-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-exits/_rotateOut.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-exits/_rotateOutDownLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-exits/_rotateOutDownRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-exits/_rotateOutUpLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-exits/_rotateOutUpRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_rotating-exits/_rotating-exits.scss" />-->
+<!--            &lt;!&ndash; animate/_sliding-entrances Folder &ndash;&gt;-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-entrances/_slideInDown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-entrances/_slideInLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-entrances/_slideInRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-entrances/_slideInUp.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-entrances/_sliding-entrances.scss" />-->
+<!--            &lt;!&ndash; animate/_sliding-exits Folder &ndash;&gt;-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-exits/_slideOutDown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-exits/_slideOutLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-exits/_slideOutRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-exits/_slideOutUp.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_sliding-exits/_sliding-exits.scss" />-->
+<!--            &lt;!&ndash; animate/_specials Folder &ndash;&gt;-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_specials/_hinge.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_specials/_rollIn.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_specials/_rollOut.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_specials/_specials.scss" />-->
+<!--            &lt;!&ndash; animate/_zooming-entrances Folder &ndash;&gt;-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-entrances/_zoomIn.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-entrances/_zoomInDown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-entrances/_zooming-entrances.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-entrances/_zoomInLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-entrances/_zoomInRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-entrances/_zoomInUp.scss" />-->
+<!--            &lt;!&ndash; animate/_zooming-exits Folder &ndash;&gt;-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-exits/_zooming-exits.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-exits/_zoomOut.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-exits/_zoomOutDown.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-exits/_zoomOutLeft.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-exits/_zoomOutRight.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/animate/_zooming-exits/_zoomOutUp.scss" />-->
+<!--            &lt;!&ndash; themify Folder &ndash;&gt;-->
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_variables.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_mixins.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_path.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_core.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_larger.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_fixed-width.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_list.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_bordered-pulled.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_animated.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_rotated-flipped.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_stacked.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_icons.scss" />
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome/_screen-reader.scss" />
+            <!-- themify Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_core.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_extras.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_icons.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_mixins.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_path.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_themify-icons.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_variables.scss" />-->
+            <!-- CSS LOAD -->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/animate.css" />-->
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color1.css" id="color" media="screen"/>
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color2.css" />
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color3.css" id="color" />
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color4.css" />-->
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color5.css" />
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color6.css" />-->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color7.css" />-->
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color8.css" />
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color9.css" />-->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color10.css" />-->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color11.css" />-->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color12.css" />-->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/flipclock.css" />-->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/font-awesome.css" />-->
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/fontawesome.css" />
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/bootstrap.css" />-->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/landing_page.css" />-->
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/magnific-popup.css" />-->
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/slick.css" />
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/custom.css" />
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/slick-theme.css" />
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/themify.css" />-->
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/themify-icons.css" />
+            <!-- Theme Folder -->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/theme/_style.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/theme/_menu.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/theme/_responsive.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/theme/_theme-dark.scss" />-->
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/theme/_variables.scss" />-->
+            <!-- AOS animations -->
+            <link rel="stylesheet" href="/theme_bigboost/static/lib/aos/aos.css" />
+        </xpath>
+        <xpath expr="script[last()]" position="after">
+            <!-- JS LOAD -->
+            <script type="text/javascript" src="/theme_bigboost/static/src/js/tab.js"/>
+            <script type="text/javascript" src="/theme_bigboost/static/src/js/frontend/theme_script.js"/>
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/bootstrap.js"/>-->
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/bootstrap-notify.min.js"/>-->
+            <script type="text/javascript" src="/theme_bigboost/static/assets/js/flip-timer.js"/>
+            <script type="text/javascript" src="/theme_bigboost/static/assets/js/flipclock.js"/>
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/isotope.min.js"/>-->
+            <script type="text/javascript" src="/theme_bigboost/static/assets/js/jquery.elevatezoom.js"/>
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/jquery.magnific-popup.js"/>-->
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/landing-script.js"/>-->
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/main.js"/>-->
+            <script type="text/javascript" src="/theme_bigboost/static/assets/js/menu.js"/>
+            <script type="text/javascript" src="/theme_bigboost/static/assets/js/modal.js"/>
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/script.js"/>-->
+            <script type="text/javascript" src="/theme_bigboost/static/assets/js/popper.min.js"/>
+            <script type="text/javascript" src="/theme_bigboost/static/assets/js/slick.js"/>
+            <script type="text/javascript" src="/theme_bigboost/static/assets/js/script.js"/>
+            <!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/sticky-kit.js"/>-->
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/timer.js"/>-->
+<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/zoom-gallery.js"/>-->
+        </xpath>
+    </template>
+
+    <template id="theme_customize_options" inherit_id="web._assets_primary_variables">
+        <xpath expr="//link" position="after">
+            <link rel="stylesheet" type="text/scss"
+				href="/theme_bigboost/static/src/scss/theme_color.scss" />
+            <link rel="stylesheet" type="text/scss"
+				href="/theme_bigboost/static/src/scss/customise_variables.scss" />
+        </xpath>
+    </template>
+    <template id="theme_fonts" inherit_id="web._assets_frontend_helpers">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss"
+				href="/theme_bigboost/static/lib/theme/para_size.scss" />
+            <link rel="stylesheet" type="text/scss"
+				href="/theme_bigboost/static/lib/theme/variables.scss" />
+            <link rel="stylesheet" type="text/scss"
+				href="/theme_bigboost/static/lib/theme/button.scss" />
+            <link rel="stylesheet" type="text/scss"
+				href="/theme_bigboost/static/lib/theme/heading_size.scss" />
+            <link rel="stylesheet" type="text/scss"
+				href="/theme_bigboost/static/lib/theme/link_color.scss" />
+        </xpath>
+    </template>
+    <template id="theme_custom_fonts" inherit_id="website._assets_primary_variables">
+        <xpath expr="//link" position="before">
+            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/lib/theme/fonts.scss" />
+        </xpath>
+    </template>
+
+    <template id="theme_bigboost_inherit_layout" inherit_id="portal.frontend_layout">
+        <xpath expr="//footer" position="after">
+            <!-- AOS animations -->
+            <script src="/theme_bigboost/static/lib/aos/aos.js"></script>
+            <script>
+				AOS.init({
+			  		easing: 'ease-out-back',
+					duration: 1500,
+					offset: 0,
+				});
+			</script>
+        </xpath>
+    </template>
+
+</odoo>

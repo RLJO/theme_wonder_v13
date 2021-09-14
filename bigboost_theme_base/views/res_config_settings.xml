@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='website']/h2[1]" position="before">
+                <div class="row pb16">
+                    <div class="col-12 o_setting_box">
+                        <h2>
+                            Theme Style Config
+                        </h2>
+                        <div class="o_setting_right_pane">
+                            <div class="content-group ml-5">
+                                <group>
+                                    <group>
+                                        <div class="mt16">
+                                            <label for="blog_style" class="o_light_label"/>
+                                            <field name="blog_style" class="oe_inline"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <div class="mt16">
+                                            <label for="shop_style" class="o_light_label"/>
+                                            <field name="shop_style" class="oe_inline"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
