@@ -17,7 +17,7 @@ class resConfig(models.TransientModel):
         ("style_5", "Style 5 (Infinite Scroll)"),
         ("style_6", "Style 6 (Metro)"),
         ("style_7", "Style 7 (Full Width)"),
-        ("style_8", "Style 8 (3 Gris)"),
+        ("style_8", "Style 8 (3 Grid)"),
         ("style_9", "Style 9 (6 Grid)")], "Select Shop Style", default='style_1')
 
 
