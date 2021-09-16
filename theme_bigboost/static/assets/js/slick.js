@@ -15,6 +15,7 @@
 
  */
 /* global window, document, define, jQuery, setInterval, clearInterval */
+$( document ).ready(function() {
 ;(function(factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -502,8 +503,9 @@
 
     };
 
+console.log("=====0000====slick-slide====000000======")
     Slick.prototype.buildOut = function() {
-
+        console.log("=========slick-slide==========")
         var _ = this;
 
         _.$slides =
@@ -3035,3 +3037,4 @@
     };
 
 }));
+});

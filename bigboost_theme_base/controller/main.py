@@ -6,7 +6,15 @@
 from datetime import datetime
 from odoo import http
 from odoo.http import request
+from odoo.addons.website.controllers.main import Website
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+
+
+class Website(Website):
+
+    @http.route('/', type='http', auth="public", website=True)
+    def index(self, **kw):
+        return request.render('bigboost_theme_base.homepage_template', {})
 
 
 class WebsiteSaleInherit(WebsiteSale):

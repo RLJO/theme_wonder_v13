@@ -36,3 +36,49 @@
     color: #222222;
     margin-bottom: 15px;
 }
+
+.slick-prev {
+    left: unset !important;
+    right: 25px !important;
+    top: -38px !important;
+}
+
+.slick-prev:before {
+    content: "\f053" !important;
+}
+
+.slick-next {
+    right: -5px !important;
+    top: -38px !important;
+}
+
+.slick-next:before {
+    content: "\f054" !important;
+}
+
+.slick-prev:before, .slick-next:before{
+    font-family: 'FontAwesome' !important;
+}
+
+.special_block{
+    .category-block{
+        background-image: none !important;
+        display: flex !important;
+    }
+    img{
+        display: block !important;
+    }
+}
+
+.slider-3 .slick-slide img {
+    display: block;
+    height: 213px;
+}
+
+.slider-section .side-banner.side-banner1 img {
+    height: 710px !important;
+}
+
+.blog-box .media img {
+    width: 150px;
+}

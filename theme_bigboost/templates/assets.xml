@@ -24,7 +24,7 @@
 <!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/color12.scss" />-->
 <!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/font-awesome.scss" />-->
 <!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/landing_page.scss" />-->
-            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/slick.scss" />
+<!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/slick.scss" />-->
 <!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/slick-theme.scss" />-->
 <!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify.scss" />-->
             <!-- bootstrap Folder -->
@@ -236,7 +236,7 @@
 <!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_themify-icons.scss" />-->
 <!--            <link rel="stylesheet" type="text/scss" href="/theme_bigboost/static/assets/scss/themify/_variables.scss" />-->
             <!-- CSS LOAD -->
-<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/animate.css" />-->
+            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/animate.css" />
             <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color1.css" id="color" media="screen"/>
 <!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color2.css" />-->
             <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color3.css" id="color" />
@@ -251,7 +251,7 @@
 <!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/color12.css" />-->
 <!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/flipclock.css" />-->
 <!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/font-awesome.css" />-->
-            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/fontawesome.css" />
+<!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/fontawesome.css" />-->
 <!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/bootstrap.css" />-->
 <!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/landing_page.css" />-->
 <!--            <link rel="stylesheet" type="text/css" href="/theme_bigboost/static/assets/css/magnific-popup.css" />-->
@@ -284,7 +284,6 @@
 <!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/main.js"/>-->
             <script type="text/javascript" src="/theme_bigboost/static/assets/js/menu.js"/>
             <script type="text/javascript" src="/theme_bigboost/static/assets/js/modal.js"/>
-<!--            <script type="text/javascript" src="/theme_bigboost/static/assets/js/script.js"/>-->
             <script type="text/javascript" src="/theme_bigboost/static/assets/js/popper.min.js"/>
             <script type="text/javascript" src="/theme_bigboost/static/assets/js/slick.js"/>
             <script type="text/javascript" src="/theme_bigboost/static/assets/js/script.js"/>

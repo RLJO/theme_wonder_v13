@@ -30,6 +30,7 @@
 // 21.Tooltip
 // 22.Dropdown Menu
 // 23.loader js
+$( document ).ready(function() {
 
 (function($) {
     "use strict";
@@ -178,6 +179,7 @@
     /*=====================
      07. Slick slider js
      ==========================*/
+     console.log("------------00000000-------------")
     $('.slide-1').slick({
         autoplay: false,
         autoplaySpeed: 5000
@@ -1485,3 +1487,4 @@ $('.dropdown .dropdown-menu li').click(function () {
      $('.loader-wrapper').fadeOut('3000', function() {
             $(this).remove();
         });
+});

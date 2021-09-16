@@ -24,6 +24,7 @@
         'views/public_category_view.xml',
         'views/portal.xml',
         'views/product_template_view.xml',
+        'views/home.xml',
 
     ],
     # Author
