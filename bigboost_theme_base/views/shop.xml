@@ -7,6 +7,7 @@
             <t t-set="additional_title">Shop</t>
             <div id="wrap" class="js_sale">
                 <div class="oe_structure" id="oe_structure_website_sale_products_1"/>
+
                 <!-- breadcrumb start -->
                 <section class="breadcrumb-section section-b-space">
                     <div class="container">
@@ -29,6 +30,7 @@
                         </div>
                     </div>
                 </section>
+                <!-- breadcrumb end -->
 
                 <t t-set="shop_style"
                    t-value="request.env['ir.config_parameter'].sudo().get_param('shop_style')"/>
@@ -528,19 +530,7 @@
                         </div>
                     </section>
                     <div class="container oe_website_sale">
-                        <div class="products_pager form-inline flex-md-nowrap justify-content-between justify-content-md-center">
-                            <t t-call="website_sale.search">
-                                <t t-set="_classes">w-100 w-md-auto mt-2</t>
-                            </t>
-                            <t t-call="website_sale.pricelist_list">
-                                <t t-set="_classes">mt-2 ml-md-2</t>
-                            </t>
-                            <t t-call="website.pager">
-                                <t t-set="_classes">mt-2 ml-md-2</t>
-                            </t>
-                        </div>
-
-                        <div class="row o_wsale_products_main_row">
+                        <div class="row o_wsale_products_main_row d-none">
                             <div t-if="enable_left_column" id="products_grid_before" class="col-lg-3"/>
                             <div id="products_grid"
                                  t-attf-class="col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">
@@ -603,9 +593,6 @@
                                 </t>
                             </div>
                         </div>
-                        <!--                    <div class="products_pager form-inline justify-content-center mt-3">-->
-                        <!--                        <t t-call="website.pager"/>-->
-                        <!--                    </div>-->
                     </div>
                 </t>
 
@@ -1628,7 +1615,7 @@
                     <section class="section-b-space ratio_square">
                         <div class="collection-wrapper">
                             <div class="container">
-                                <div class="row">
+                                <div class="row oe_website_sale">
                                     <div class="collection-content col">
                                         <div class="page-main-content">
                                             <div class="row">
@@ -2940,7 +2927,7 @@
                     <section class="section-b-space ratio_square">
                         <div class="collection-wrapper">
                             <div class="container">
-                                <div class="row">
+                                <div class="row oe_website_sale">
                                     <div class="collection-content col">
                                         <div class="page-main-content">
                                             <div class="top-banner-wrapper">
@@ -3289,7 +3276,7 @@
                     <section class="section-b-space ratio_square">
                         <div class="collection-wrapper">
                             <div class="container">
-                                <div class="row">
+                                <div class="row oe_website_sale">
                                     <div class="collection-content col">
                                         <div class="page-main-content">
                                             <div class="row">
@@ -3639,85 +3626,161 @@
                     </section>
                 </t>
 
-                <t t-foreach="products" t-as="product">
-                    <div class="modal fade bd-example-modal-lg theme-modal" t-attf-id="quick-view-#{product.id}"
-                         tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                            <div class="modal-content quick-view-modal">
-                                <div class="modal-body">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">X</span>
-                                    </button>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-xs-12">
-                                            <div class="quick-view-img">
-                                                <img src="theme_bigboost/static/src/img/2.jpg" alt=""
-                                                     class="img-fluid "/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 rtl-text">
-                                            <div class="product-right">
-                                                <h2>
-                                                    <t t-esc="product.name"/>
-                                                </h2>
-                                                <h3>$32.96</h3>
-                                                <div class="border-product">
-                                                    <h6 class="product-title">product details:</h6>
-                                                    <p>this brand is a t-shirt led value brand for men, women and kids.
-                                                        Our range consists of basic and updated basic knit apparel. We
-                                                        offer both singles and packs with the right blend of quality,
-                                                        style and value aimed to delight our customers.
-                                                    </p>
-                                                </div>
-                                                <div class="product-description border-product">
-                                                    <h6 class="product-title">color:</h6>
-                                                    <ul class="color-variant">
-                                                        <li class="light-purple active"></li>
-                                                        <li class="theme-blue"></li>
-                                                        <li class="theme-color"></li>
-                                                    </ul>
-                                                    <h6 class="product-title">size:</h6>
-                                                    <div class="size-box">
-                                                        <ul class="size-box">
-                                                            <li class="active">xs</li>
-                                                            <li>s</li>
-                                                            <li>m</li>
-                                                            <li>l</li>
-                                                            <li>xl</li>
-                                                        </ul>
-                                                    </div>
-                                                    <h6 class="product-title">quantity:</h6>
-                                                    <div class="qty-box">
-                                                        <div class="input-group">
-                                                            <span class="input-group-prepend">
-                                                                <button type="button" class="btn quantity-left-minus"
-                                                                        data-type="minus" data-field="">
-                                                                    <i class="ti-angle-left"></i>
-                                                                </button>
-                                                            </span>
-                                                            <input type="text" name="quantity"
-                                                                   class="form-control input-number" value="1"/>
-                                                            <span class="input-group-prepend">
-                                                                <button type="button" class="btn quantity-right-plus"
-                                                                        data-type="plus" data-field="">
-                                                                    <i class="ti-angle-right"></i>
-                                                                </button>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-buttons">
-                                                    <a href="cart.html" class="btn btn-solid">add to cart</a>
-                                                    <a href="product-page.html" class="btn btn-solid">view detail</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </t>
+                <!-- Quick View Popup Start-->
+<!--                <t t-foreach="products" t-as="product">-->
+<!--                    <div class="modal fade bd-example-modal-lg theme-modal" t-attf-id="quick-view-#{product.id}"-->
+<!--                         tabindex="-1" role="dialog">-->
+<!--                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">-->
+<!--                            <div class="modal-content quick-view-modal">-->
+<!--                                <div class="modal-body oe_website_sale">-->
+<!--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                        <span aria-hidden="true">X</span>-->
+<!--                                    </button>-->
+<!--                                    <t t-set="combination" t-value="product._get_first_possible_combination()"/>-->
+<!--                                    <t t-set="combination_info"-->
+<!--                                       t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>-->
+<!--                                    <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>-->
+<!--                                    <section-->
+<!--                    t-attf-class="container-fluid py-2 oe_website_sale #{'discount' if combination_info['has_discounted_price'] else ''}"-->
+<!--                    id="product_detail">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-lg-6 col-xs-12" >-->
+<!--                                             <t t-call="website_sale.shop_product_carousel"/>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-lg-6 rtl-text product-right" id="product_details">-->
+<!--                                            <h1 itemprop="name" t-field="product.name" class="te_product_name d-none">Product Name</h1>-->
+<!--                                            <div class="o_not_editable d-none">-->
+<!--                                                <p t-field="product.description_sale" class="te_prod_desc"/>-->
+<!--                                            </div>-->
+<!--                                            <h2>-->
+<!--                                                <t t-esc="product.name"/>-->
+<!--                                            </h2>-->
+<!--                                            <span itemprop="url" style="display:none;" t-esc="product.website_url"/>-->
+<!--                                            <form t-if="product._is_add_to_cart_possible()" action="/shop/cart/update" method="POST">-->
+<!--                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+<!--                                                <div class="js_product js_main_product">-->
+<!--                                                    <t t-call="website_sale.product_price"/>-->
+<!--                                                    <t t-if="product.description_sale">-->
+<!--                                                        <div class="border-product">-->
+<!--                                                            <h6 class="product-title">product details:</h6>-->
+<!--                                                            <p>-->
+<!--                                                                <t t-esc="product.description_sale"/>-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </t>-->
+<!--                                                    <div class="pt16"/>-->
+<!--                                                    <t t-if="not request.website.viewref('website_sale.product_variants').active">-->
+<!--                                                        <t t-placeholder="select">-->
+<!--                                                            <input type="hidden" class="product_id" name="product_id"-->
+<!--                                                                   t-att-value="product_variant.id"/>-->
+<!--                                                            <input type="hidden" class="product_template_id" name="product_template_id"-->
+<!--                                                                   t-att-value="product.id"/>-->
+<!--                                                            <t t-if="combination" t-call="sale.variants">-->
+<!--                                                                <t t-set="ul_class" t-value="'flex-column'"/>-->
+<!--                                                                <t t-set="parent_combination" t-value="None"/>-->
+<!--                                                            </t>-->
+<!--                                                            <t t-else="">-->
+<!--                                                                <ul class="d-none js_add_cart_variants"-->
+<!--                                                                    t-att-data-attribute_exclusions="{'exclusions: []'}"/>-->
+<!--                                                            </t>-->
+<!--                                                        </t>-->
+<!--                                                    </t>-->
+<!--                                                    <t t-else="">-->
+<!--                                                        <t t-if="not product.has_dynamic_attributes() and not product._has_no_variant_attributes() and not product._has_is_custom_values()">-->
+<!--                                                            <t t-set="attribute_exclusions" t-value="product._get_attribute_exclusions()"/>-->
+<!--                                                            <t t-set="filtered_sorted_variants"-->
+<!--                                                               t-value="product._get_possible_variants_sorted()"/>-->
+<!--                                                            <ul class="d-none js_add_cart_variants"-->
+<!--                                                                t-att-data-attribute_exclusions="json.dumps(attribute_exclusions)"/>-->
+<!--                                                            <input type="hidden" class="product_template_id" t-att-value="product.id"/>-->
+<!--                                                            <input type="hidden" t-if="len(filtered_sorted_variants) == 1"-->
+<!--                                                                   class="product_id" name="product_id"-->
+<!--                                                                   t-att-value="filtered_sorted_variants[0].id"/>-->
+<!--                                                            <t t-if="len(filtered_sorted_variants) &gt; 1">-->
+<!--                                                                <div t-foreach="filtered_sorted_variants" t-as="variant_id"-->
+<!--                                                                     class="custom-control custom-radio">-->
+<!--                                                                    <t t-set="template_combination_info"-->
+<!--                                                                       t-value="product._get_combination_info(only_template=True, add_qty=add_qty, pricelist=pricelist)"/>-->
+<!--                                                                    <t t-set="combination_info"-->
+<!--                                                                       t-value="variant_id._get_combination_info_variant(add_qty=add_qty, pricelist=pricelist)"/>-->
+<!--                                                                    <input type="radio" name="product_id"-->
+<!--                                                                           class="custom-control-input product_id js_product_change"-->
+<!--                                                                           t-att-checked="'checked' if variant_id_index == 0 else None"-->
+<!--                                                                           t-attf-id="radio_variant_#{variant_id.id}"-->
+<!--                                                                           t-att-value="variant_id.id"-->
+<!--                                                                           t-att-data-price="combination_info['price']"-->
+<!--                                                                           t-att-data-combination="variant_id.product_template_attribute_value_ids.ids"/>-->
+<!--                                                                    <label t-attf-for="radio_variant_#{variant_id.id}"-->
+<!--                                                                           label-default="label-default" class="custom-control-label">-->
+<!--                                                                        <span t-esc="combination_info['display_name']"/>-->
+<!--                                                                        <t t-set="diff_price"-->
+<!--                                                                           t-value="website.currency_id.compare_amounts(combination_info['price'], template_combination_info['price'])"/>-->
+<!--                                                                        <span class="badge badge-pill badge-secondary"-->
+<!--                                                                              t-if="diff_price != 0">-->
+<!--                                                                            <t t-esc="diff_price > 0 and '+' or '-'"/>-->
+<!--                                                                            <span t-esc="abs(combination_info['price'] - template_combination_info['price'])"-->
+<!--                                                                                  t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
+<!--                                                                        </span>-->
+<!--                                                                    </label>-->
+<!--                                                                </div>-->
+<!--                                                            </t>-->
+<!--                                                        </t>-->
+<!--                                                        <t t-else="">$0</t>-->
+<!--                                                    </t>-->
+
+<!--                                                    <p t-if="True" class="css_not_available_msg alert alert-warning">This combination does-->
+<!--                                                        not exist.-->
+<!--                                                    </p>-->
+
+<!--                                                    <div class="product-description">-->
+<!--                                                        <h6 class="product-title">quantity:</h6>-->
+<!--                                                        <div class="qty-box">-->
+<!--                                                            <div class="input-group">-->
+<!--                                                                <span class="input-group-prepend">-->
+<!--                                                                    <button type="button"-->
+<!--                                                                            class="btn quantity-left-minus"-->
+<!--                                                                            data-type="minus" data-field="">-->
+<!--                                                                        <i class="ti-angle-left"></i>-->
+<!--                                                                    </button>-->
+<!--                                                                </span>-->
+<!--                                                                <input type="text" name="add_qty"-->
+<!--                                                                       class="form-control input-number quantity" value="1"/>-->
+<!--                                                                <span class="input-group-prepend">-->
+<!--                                                                    <button type="button"-->
+<!--                                                                            class="btn quantity-right-plus"-->
+<!--                                                                            data-type="plus" data-field="">-->
+<!--                                                                        <i class="ti-angle-right"></i>-->
+<!--                                                                    </button>-->
+<!--                                                                </span>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+
+<!--                                                     <div class="product-buttons">-->
+<!--                                                    <a role="button"-->
+<!--                                                       class="btn btn-solid btn-lg mt24 a-submit te_theme_button quick-add-to-cart"-->
+<!--                                                       href="#">-->
+<!--                                                        <span class="fa fa-shopping-cart"/>-->
+<!--                                                        Add to Cart-->
+<!--                                                    </a>-->
+<!--                                                     <a t-attf-href="/shop/product/#{slug(product)}" class="mt24 btn btn-solid">view detail</a>-->
+<!--                                                     </div>-->
+<!--                                                    <div class="availability_messages o_not_editable"/>-->
+<!--                                                </div>-->
+<!--                                            </form>-->
+<!--                                            <p t-elif="not product.active" class="alert alert-warning">This product is no longer-->
+<!--                                                available.-->
+<!--                                            </p>-->
+<!--                                            <p t-else="" class="alert alert-warning">This product has no valid combination.</p>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    </section>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </t>-->
+                <!-- Quick View Popup End-->
 
                 <div class="oe_structure mb32 d-none" id="oe_structure_website_sale_products_2"/>
             </div>

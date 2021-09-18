@@ -38,8 +38,22 @@ class WebsiteController(http.Controller):
     @http.route(['/ppg_shop/update'], type='json', auth="public", method='post', website=True)
     def ppg_shop_update(self, **post):
         if post.get('ppg_shop'):
-            print("======ppg_shop=====",int(post.get('ppg_shop')))
-            request.env['website'].get_current_website().write({
+            request.env['website'].get_current_website().sudo().write({
                 'shop_ppg':int(post.get('ppg_shop'))
             })
         return True
+
+    # CREATE PRODUCT REVIEW FORM SAVE DATA
+    @http.route(['/review-created'], type='http', auth="public", methods=['POST'], website=True)
+    def product_review_created(self, **post):
+        if post.get("name") and post.get("product_id"):
+            product = request.env['product.template'].sudo().browse([int(post.get("product_id"))])
+            product_review = request.env['product.review'].sudo().create({
+                'product_id':product.id,
+                'name':post.get("name"),
+                'email':post.get("email"),
+                'title':post.get("title"),
+                'description':post.get("description"),
+                'state':post.get("stars"),
+            })
+        return request.render('bigboost_theme_base.thank_you_review_template', {'product':product})

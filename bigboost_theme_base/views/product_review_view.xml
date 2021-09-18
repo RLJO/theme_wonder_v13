@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_review_form_view" model="ir.ui.view">
+            <field name="name">product.review.form.view</field>
+            <field name="model">product.review</field>
+            <field name="arch" type="xml">
+                <form string="Product Review">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="product_id"/>
+                            <h1>
+                                <field name="product_id" placeholder="Product"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="state"/>
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="title"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_review_tree_view" model="ir.ui.view">
+            <field name="name">product.review.tree.view</field>
+            <field name="model">product.review</field>
+            <field name="arch" type="xml">
+                <tree string="Product Review">
+                    <field name="product_id"/>
+                    <field name="state"/>
+                    <field name="title"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_review_search_view" model="ir.ui.view">
+            <field name="name">product.review.search.view</field>
+            <field name="model">product.review</field>
+            <field name="arch" type="xml">
+                <search string="ModelTitle">
+                    <group expand="1" string="Group By">
+                        <filter string="Product" name="product_field"
+                                context="{'group_by':'product_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="product_review_act_window" model="ir.actions.act_window">
+            <field name="name">Product Review</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.review</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no Product Review click here to add new Product Review.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Product Review" id="product_review_menu" parent="website_sale.menu_catalog" action="product_review_act_window"/>
+
+    </data>
+</odoo>

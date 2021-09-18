@@ -24,6 +24,8 @@
         'views/public_category_view.xml',
         'views/portal.xml',
         'views/product_template_view.xml',
+        'views/product_review_view.xml',
+        'views/product_details.xml',
         'views/home.xml',
 
     ],

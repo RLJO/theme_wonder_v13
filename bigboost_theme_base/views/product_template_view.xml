@@ -16,5 +16,35 @@
             </field>
         </record>
 
+        <record id="product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='variants']" position="after">
+                    <page string='Website Description'>
+                        <h2 class="text-primary">Website Description :</h2>
+                        <field name='website_description'/>
+                        <h2 class="text-primary">Website Details :</h2>
+                        <field name='website_details'/>
+                        <h2 class="text-primary">Product Video URL :</h2>
+                        <field name='product_video_url' placeholder="https://www.youtube.com/embed/VIDEO_ID"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_public_category_form_inherit_view" model="ir.ui.view">
+            <field name="name">product_public_category_form_view</field>
+            <field name="model">product.public.category</field>
+            <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='description']" position="after">
+                    <field name="is_display_product"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>
