@@ -26,6 +26,7 @@
         'views/product_template_view.xml',
         'views/product_review_view.xml',
         'views/product_details.xml',
+        'views/home_configure_view.xml',
         'views/home.xml',
 
     ],

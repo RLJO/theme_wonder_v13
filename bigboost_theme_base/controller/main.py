@@ -14,7 +14,12 @@ class Website(Website):
 
     @http.route('/', type='http', auth="public", website=True)
     def index(self, **kw):
-        return request.render('bigboost_theme_base.homepage_template', {})
+        banners = request.env['banner.banner'].sudo().search([])
+        sales = request.env['summer.sale'].sudo().search([])
+        return request.render('bigboost_theme_base.homepage_template', {
+            'banners': banners,
+            'sales': sales,
+        })
 
 
 class WebsiteSaleInherit(WebsiteSale):
