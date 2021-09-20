@@ -8,6 +8,7 @@ class ProductTemplate(models.Model):
     is_new_product = fields.Boolean(string='New Product')
     website_details = fields.Html(string='Website Details')
     product_video_url = fields.Char(string='Product Video URL')
+    timer = fields.Date(string="Offer Date")
 
 class ProductPublicCategory(models.Model):
     _inherit = 'product.public.category'

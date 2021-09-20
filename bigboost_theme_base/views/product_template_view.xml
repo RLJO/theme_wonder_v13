@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-         <record id="product_template_form_inherit_view" model="ir.ui.view">
+        <record id="product_template_form_inherit_view" model="ir.ui.view">
             <field name="name">product_template_form_view</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
@@ -30,6 +30,8 @@
                         <field name='website_details'/>
                         <h2 class="text-primary">Product Video URL :</h2>
                         <field name='product_video_url' placeholder="https://www.youtube.com/embed/VIDEO_ID"/>
+                        <h2 class="text-primary">Time Reminder :</h2>
+                        <field name='timer'/>
                     </page>
                 </xpath>
             </field>

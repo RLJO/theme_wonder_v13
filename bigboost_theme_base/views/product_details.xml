@@ -38,181 +38,759 @@
             </section>
             <!-- breadcrumb End -->
 
-            <!-- DUMMY SECTION START-->
-            <section class="">
-                <div class="collection-wrapper">
-                    <div class="container oe_website_sale">
-                        <div class="row">
-                            <div class="col-sm-3 collection-filter">
+            <div class="oe_website_sale">
 
-                                <!-- brand categories section start -->
-                                <div class="collection-filter-block">
-                                    <div class="collection-mobile-back">
-                                        <span class="filter-back">
-                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                            back
-                                        </span>
+                <!-- DUMMY SECTION START-->
+                <section class="">
+                    <div class="collection-wrapper">
+                        <div class="container ">
+                            <div class="row">
+
+                                <div class="col-sm-3 collection-filter">
+
+                                    <!-- brand categories section start -->
+                                    <div class="collection-filter-block">
+                                        <div class="collection-mobile-back">
+                                            <span class="filter-back">
+                                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                back
+                                            </span>
+                                        </div>
+                                        <t t-set="categories"
+                                           t-value="request.env['product.public.category'].sudo().search([('is_display_product','=',True)])"/>
+                                        <t t-if="categories">
+                                            <div class="collection-collapse-block border-0 open">
+                                                <h4 class="collapse-block-title">brand</h4>
+                                                <div class="collection-collapse-block-content">
+                                                    <div class="collection-brand-filter">
+                                                        <ul class="category-list">
+                                                            <t t-foreach="categories" t-as="category">
+                                                                <li>
+                                                                    <a t-attf-href="/shop/category/#{ slug(category) }">
+                                                                        <t t-esc="category.name"/>
+                                                                    </a>
+                                                                </li>
+                                                            </t>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
                                     </div>
-                                    <t t-set="categories"
-                                       t-value="request.env['product.public.category'].sudo().search([('is_display_product','=',True)])"/>
-                                    <t t-if="categories">
-                                        <div class="collection-collapse-block border-0 open">
-                                            <h4 class="collapse-block-title">brand</h4>
-                                            <div class="collection-collapse-block-content">
-                                                <div class="collection-brand-filter">
-                                                    <ul class="category-list">
-                                                        <t t-foreach="categories" t-as="category">
-                                                            <li>
-                                                                <a t-attf-href="/shop/category/#{ slug(category) }">
-                                                                    <t t-esc="category.name"/>
-                                                                </a>
-                                                            </li>
-                                                        </t>
-                                                    </ul>
+                                    <!-- brand categories section end -->
+
+                                    <!-- service section start -->
+                                    <div class="collection-filter-block">
+                                        <div class="product-service">
+                                            <div class="media">
+                                                <img src="/theme_bigboost/static/src/img/services/1.png"
+                                                     class=" img-fluid"
+                                                     alt=""/>
+                                                <div class="media-body">
+                                                    <h4>free shipping</h4>
+                                                    <p>free shipping world wide</p>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <img src="/theme_bigboost/static/src/img/services/3.png"
+                                                     class=" img-fluid"
+                                                     alt=""/>
+                                                <div class="media-body">
+                                                    <h4>24 X 7 service</h4>
+                                                    <p>online service for new customer</p>
+                                                </div>
+                                            </div>
+                                            <div class="media">
+                                                <img src="/theme_bigboost/static/src/img/services/4.png"
+                                                     class=" img-fluid"
+                                                     alt=""/>
+                                                <div class="media-body">
+                                                    <h4>festival offer</h4>
+                                                    <p>new online special festival offer</p>
+                                                </div>
+                                            </div>
+                                            <div class="media border-0 m-0">
+                                                <img src="/theme_bigboost/static/src/img/services/2.png"
+                                                     class=" img-fluid"
+                                                     alt=""/>
+                                                <div class="media-body">
+                                                    <h4>online payment</h4>
+                                                    <p>Contrary to popular belief.</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </t>
-                                </div>
-                                <!-- brand categories section end -->
+                                    </div>
+                                    <!-- service section end -->
 
-                                <!-- service section start -->
-                                <div class="collection-filter-block">
-                                    <div class="product-service">
-                                        <div class="media">
-                                            <img src="/theme_bigboost/static/src/img/services/1.png" class=" img-fluid"
-                                                 alt=""/>
-                                            <div class="media-body">
-                                                <h4>free shipping</h4>
-                                                <p>free shipping world wide</p>
+                                    <!-- new products section start -->
+                                    <t t-set="new_products"
+                                       t-value="request.env['product.template'].sudo().search([('is_new_product','=',True)])"/>
+                                    <t t-set="new_products_len"
+                                       t-value="len(request.env['product.template'].sudo().search([('is_new_product','=',True)]))"/>
+                                    <t t-set="for_loop_len" t-value="int((new_products_len/3)+1)"/>
+                                    <t t-if="new_products">
+                                        <div class="theme-card">
+                                            <h5 class="title-border">new product</h5>
+                                            <div class="offer-slider slide-1">
+
+                                                <t t-set="new_product_count" t-value="1"/>
+                                                <t t-foreach="range(for_loop_len)" t-as="i">
+                                                    <t t-if="new_products_len>=new_product_count">
+                                                        <div>
+                                                            <t t-foreach="range(3)" t-as="j">
+                                                                <t t-if="new_products_len>=new_product_count">
+                                                                    <div class="media">
+                                                                        <a t-attf-href="/shop/product/#{ slug(new_products[new_product_count-1]) }">
+
+                                                                            <img t-attf-src="/web/image/product.template/#{new_products[new_product_count-1].id}/image_1920"
+                                                                                 class="img-fluid"
+                                                                                 alt="Product image"
+                                                                            />
+                                                                        </a>
+                                                                        <div class="media-body align-self-center">
+                                                                            <a t-attf-href="/shop/product/#{ slug(new_products[new_product_count-1]) }">
+                                                                                <h6>
+                                                                                    <t t-esc="new_products[new_product_count-1].name"/>
+                                                                                </h6>
+                                                                            </a>
+                                                                            <h4>
+                                                                                <t t-esc="new_products[new_product_count-1].currency_id.symbol"/>
+                                                                                <t t-esc="new_products[new_product_count-1].list_price"/>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
+                                                                    <t t-set="new_product_count"
+                                                                       t-value="new_product_count+1"/>
+                                                                </t>
+                                                            </t>
+                                                        </div>
+                                                    </t>
+                                                </t>
+
+
                                             </div>
                                         </div>
-                                        <div class="media">
-                                            <img src="/theme_bigboost/static/src/img/services/3.png" class=" img-fluid"
-                                                 alt=""/>
-                                            <div class="media-body">
-                                                <h4>24 X 7 service</h4>
-                                                <p>online service for new customer</p>
+                                    </t>
+                                    <!-- new products section end -->
+
+                                </div>
+
+                                <div class="col-lg-9 col-sm-12 col-xs-12">
+                                    <div class="container-fluid p-0">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="filter-main-btn mb-2">
+                                                    <span class="filter-btn">
+                                                        <i class="fa fa-filter" aria-hidden="true"></i>
+                                                        filter
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="media">
-                                            <img src="/theme_bigboost/static/src/img/services/4.png" class=" img-fluid"
-                                                 alt=""/>
-                                            <div class="media-body">
-                                                <h4>festival offer</h4>
-                                                <p>new online special festival offer</p>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+<!--                                                <t t-call="website_sale.shop_product_carousel"/>-->
+                                                <div class="product-slick">
+                                                    <div>
+                                                         <img t-attf-src="/web/image/product.template/#{product.id}/image_1920" alt=""
+                                                             class="img-fluid  image_zoom_cls-0"/>
+                                                    </div>
+                                                    <t t-if="product.product_template_image_ids">
+                                                        <t t-set="count" t-value="1"/>
+                                                        <t t-foreach="product.product_template_image_ids"
+                                                           t-as="product_template_image">
+                                                            <div>
+                                                                <img t-attf-src="/web/image/product.image/#{product_template_image.id}/image_1920" alt=""
+                                                                     t-attf-class="img-fluid  image_zoom_cls-#{count}"/>
+                                                                <t t-set="count" t-value="count+1"/>
+                                                            </div>
+                                                        </t>
+                                                    </t>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 p-0">
+                                                        <div class="slider-nav">
+                                                            <div>
+                                                                <img t-attf-src="/web/image/product.template/#{product.id}/image_1920"
+                                                                     alt=""
+                                                                     class="img-fluid "  style="height:116px"/>
+                                                            </div>
+                                                            <t t-if="product.product_template_image_ids">
+                                                                <t t-foreach="product.product_template_image_ids" t-as="product_template_image">
+                                                                    <div>
+                                                                        <img t-attf-src="/web/image/product.image/#{product_template_image.id}/image_1920" alt=""
+                                                                             class="img-fluid "  style="height:116px"/>
+                                                                    </div>
+                                                                </t>
+                                                            </t>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <div class="col-lg-6 rtl-text product-right" id="product_details">
+                                                <h1 itemprop="name" t-field="product.name"
+                                                    class="te_product_name d-none">
+                                                    Product Name
+                                                </h1>
+                                                <div class="o_not_editable d-none">
+                                                    <p t-field="product.description_sale" class="te_prod_desc"/>
+                                                </div>
+
+
+                                                <h2>
+                                                    <t t-esc="product.name"/>
+                                                </h2>
+
+
+                                                <span itemprop="url" style="display:none;" t-esc="product.website_url"/>
+                                                <form t-if="product._is_add_to_cart_possible()"
+                                                      action="/shop/cart/update"
+                                                      method="POST">
+                                                    <input type="hidden" name="csrf_token"
+                                                           t-att-value="request.csrf_token()"/>
+                                                    <div class="js_product js_main_product">
+                                                        <t t-call="website_sale.product_price"/>
+
+                                                        <div class="pt16"/>
+
+                                                        <t t-if="not request.website.viewref('website_sale.product_variants').active">
+                                                            <t t-placeholder="select">
+                                                                <input type="hidden" class="product_id"
+                                                                       name="product_id"
+                                                                       t-att-value="product_variant.id"/>
+                                                                <input type="hidden" class="product_template_id"
+                                                                       name="product_template_id"
+                                                                       t-att-value="product.id"/>
+                                                                <t t-if="combination" t-call="sale.variants">
+                                                                    <t t-set="ul_class" t-value="'flex-column'"/>
+                                                                    <t t-set="parent_combination" t-value="None"/>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <ul class="d-none js_add_cart_variants"
+                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                </t>
+                                                            </t>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <t t-if="not product.has_dynamic_attributes() and not product._has_no_variant_attributes() and not product._has_is_custom_values()">
+                                                                <t t-set="attribute_exclusions"
+                                                                   t-value="product._get_attribute_exclusions()"/>
+                                                                <t t-set="filtered_sorted_variants"
+                                                                   t-value="product._get_possible_variants_sorted()"/>
+                                                                <ul class="d-none js_add_cart_variants"
+                                                                    t-att-data-attribute_exclusions="json.dumps(attribute_exclusions)"/>
+                                                                <input type="hidden" class="product_template_id"
+                                                                       t-att-value="product.id"/>
+                                                                <input type="hidden"
+                                                                       t-if="len(filtered_sorted_variants) == 1"
+                                                                       class="product_id" name="product_id"
+                                                                       t-att-value="filtered_sorted_variants[0].id"/>
+                                                                <t t-if="len(filtered_sorted_variants) &gt; 1">
+                                                                    <div t-foreach="filtered_sorted_variants"
+                                                                         t-as="variant_id"
+                                                                         class="custom-control custom-radio">
+                                                                        <t t-set="template_combination_info"
+                                                                           t-value="product._get_combination_info(only_template=True, add_qty=add_qty, pricelist=pricelist)"/>
+                                                                        <t t-set="combination_info"
+                                                                           t-value="variant_id._get_combination_info_variant(add_qty=add_qty, pricelist=pricelist)"/>
+                                                                        <input type="radio" name="product_id"
+                                                                               class="custom-control-input product_id js_product_change"
+                                                                               t-att-checked="'checked' if variant_id_index == 0 else None"
+                                                                               t-attf-id="radio_variant_#{variant_id.id}"
+                                                                               t-att-value="variant_id.id"
+                                                                               t-att-data-price="combination_info['price']"
+                                                                               t-att-data-combination="variant_id.product_template_attribute_value_ids.ids"/>
+                                                                        <label t-attf-for="radio_variant_#{variant_id.id}"
+                                                                               label-default="label-default"
+                                                                               class="custom-control-label">
+                                                                            <span t-esc="combination_info['display_name']"/>
+                                                                            <t t-set="diff_price"
+                                                                               t-value="website.currency_id.compare_amounts(combination_info['price'], template_combination_info['price'])"/>
+                                                                            <span class="badge badge-pill badge-secondary"
+                                                                                  t-if="diff_price != 0">
+                                                                                <t t-esc="diff_price > 0 and '+' or '-'"/>
+                                                                                <span t-esc="abs(combination_info['price'] - template_combination_info['price'])"
+                                                                                      t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                                                            </span>
+                                                                        </label>
+                                                                    </div>
+                                                                </t>
+                                                            </t>
+                                                            <t t-else="">$0</t>
+                                                        </t>
+
+                                                        <p t-if="True"
+                                                           class="css_not_available_msg alert alert-warning">
+                                                            This combination does
+                                                            not exist.
+                                                        </p>
+
+                                                        <div class="product-description">
+                                                            <h6 class="product-title">quantity:</h6>
+                                                            <div class="qty-box">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-prepend">
+                                                                        <button type="button"
+                                                                                class="btn quantity-left-minus"
+                                                                                data-type="minus" data-field="">
+                                                                            <i class="ti-angle-left"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                    <input type="text" name="add_qty"
+                                                                           class="form-control input-number quantity"
+                                                                           value="1"/>
+                                                                    <span class="input-group-prepend">
+                                                                        <button type="button"
+                                                                                class="btn quantity-right-plus"
+                                                                                data-type="plus" data-field="">
+                                                                            <i class="ti-angle-right"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="product-buttons">
+                                                            <a role="button"
+                                                               class="btn btn-solid btn-lg mt24 a-submit te_theme_button quick-add-to-cart"
+                                                               href="#">
+                                                                Add to Cart
+                                                            </a>
+                                                            <a id="buy_now" role="button" href="#"
+                                                               class="mt24 btn btn-solid">buy now
+                                                            </a>
+                                                        </div>
+                                                        <t t-if="product.description_sale">
+                                                            <div class="border-product">
+                                                                <h6 class="product-title">product details:</h6>
+                                                                <p>
+                                                                    <t t-esc="product.description_sale"/>
+                                                                </p>
+                                                            </div>
+                                                        </t>
+                                                        <div class="availability_messages o_not_editable"/>
+                                                    </div>
+                                                </form>
+                                                <p t-elif="not product.active" class="alert alert-warning">This product
+                                                    is
+                                                    no longer
+                                                    available.
+                                                </p>
+                                                <p t-else="" class="alert alert-warning">This product has no valid
+                                                    combination.
+                                                </p>
+
+                                                <!-- dummy start -->
+                                                <div class="product-right">
+                                                    <div class="border-product">
+                                                        <h6 class="product-title">share it</h6>
+                                                        <div class="product-icon">
+                                                            <ul class="product-social">
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-facebook"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-google-plus"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-twitter"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-instagram"></i>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-rss"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                            <form class="d-inline-block">
+                                                                <t t-set="product_variant"
+                                                                   t-value="product_variant or product._create_first_product_variant()"/>
+                                                                <t t-set="in_wish"
+                                                                   t-value="product_variant and product_variant._is_in_wishlist()"/>
+                                                                <button type="button" role="button"
+                                                                        class="wishlist-btn o_add_wishlist_dyn"
+                                                                        t-att-disabled='in_wish or None'
+                                                                        t-att-data-product-template-id="product.id"
+                                                                        t-att-data-product-product-id="product_variant.id"
+                                                                        data-action="o_wishlist">
+                                                                    <i class="fa fa-heart"></i>
+                                                                    <span class="title-font">Add To WishList</span>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <t t-if="product.timer">
+                                                        <input type="hidden" id="timer" t-att-value="product.timer"/>
+                                                        <div class="border-product">
+                                                            <h6 class="product-title">Time Reminder</h6>
+                                                            <div class="timer">
+                                                                <p id="demo">
+                                                                    <span>
+                                                                        <spam id="day">00</spam>
+                                                                        <span class="padding-l">:</span>
+                                                                        <span class="timer-cal">Days</span>
+                                                                    </span>
+                                                                    <span>
+                                                                        <spam id="hour">00</spam>
+                                                                        <span class="padding-l">:</span>
+                                                                        <span class="timer-cal">Hrs</span>
+                                                                    </span>
+                                                                    <span>
+                                                                        <spam id="minite">00</spam>
+                                                                        <span class="padding-l">:</span>
+                                                                        <span class="timer-cal">Min</span>
+                                                                    </span>
+                                                                    <span>
+                                                                        <spam id="second">00</spam>
+                                                                        <span class="timer-cal">Sec</span>
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                                <!-- dummy end -->
+                                            </div>
+
                                         </div>
-                                        <div class="media border-0 m-0">
-                                            <img src="/theme_bigboost/static/src/img/services/2.png" class=" img-fluid"
-                                                 alt=""/>
-                                            <div class="media-body">
-                                                <h4>online payment</h4>
-                                                <p>Contrary to popular belief.</p>
+                                    </div>
+
+                                    <!-- product tab start -->
+                                    <div class="tab-product m-0">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-lg-12">
+                                                <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="top-home-tab" data-toggle="tab"
+                                                           href="#top-home" role="tab" aria-selected="true"><i
+                                                                class="icofont icofont-ui-home"></i>Description
+                                                        </a>
+                                                        <div class="material-border"></div>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="profile-top-tab" data-toggle="tab"
+                                                           href="#top-profile" role="tab" aria-selected="false"><i
+                                                                class="icofont icofont-man-in-glasses"></i>Details
+                                                        </a>
+                                                        <div class="material-border"></div>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="contact-top-tab" data-toggle="tab"
+                                                           href="#top-contact" role="tab" aria-selected="false"><i
+                                                                class="icofont icofont-contacts"></i>Video
+                                                        </a>
+                                                        <div class="material-border"></div>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="review-top-tab" data-toggle="tab"
+                                                           href="#top-review" role="tab" aria-selected="false"><i
+                                                                class="icofont icofont-contacts"></i>Write Review
+                                                        </a>
+                                                        <div class="material-border"></div>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content nav-material" id="top-tabContent">
+                                                    <div class="tab-pane fade show active" id="top-home" role="tabpanel"
+                                                         aria-labelledby="top-home-tab">
+                                                        <p>
+                                                            <t t-raw="product.website_description"/>
+                                                        </p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="top-profile" role="tabpanel"
+                                                         aria-labelledby="profile-top-tab">
+                                                        <p>
+                                                            <t t-raw="product.website_details"/>
+                                                        </p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="top-contact" role="tabpanel"
+                                                         aria-labelledby="contact-top-tab">
+                                                        <t t-if="product.product_video_url">
+                                                            <div class="mt-3 text-center">
+                                                                <iframe width="560" height="315"
+                                                                        t-att-src="product.product_video_url"
+                                                                        allow="autoplay;"
+                                                                        allowfullscreen="allowfullscreen"></iframe>
+                                                            </div>
+                                                        </t>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="top-review" role="tabpanel"
+                                                         aria-labelledby="review-top-tab">
+                                                        <form class="theme-form " action="/review-created"
+                                                              id="reviewCreated" method="post">
+                                                            <input type="hidden" name="csrf_token"
+                                                                   t-att-value="request.csrf_token()"/>
+                                                            <input type="hidden" name="product_id"
+                                                                   t-att-value="product.id"/>
+                                                            <div class="form-row">
+                                                                <div class="col-md-12">
+                                                                    <div class="media">
+                                                                        <label>Rating</label>
+                                                                        <div class="media-body ml-3 rating">
+                                                                            <label>
+                                                                                <input type="radio" name="stars"
+                                                                                       value="poor"
+                                                                                       required="required"/>
+                                                                                <span class="icon">★</span>
+                                                                            </label>
+                                                                            <label>
+                                                                                <input type="radio" name="stars"
+                                                                                       value="fair"/>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                            </label>
+                                                                            <label>
+                                                                                <input type="radio" name="stars"
+                                                                                       value="good"/>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                            </label>
+                                                                            <label>
+                                                                                <input type="radio" name="stars"
+                                                                                       value="vgood"/>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                            </label>
+                                                                            <label>
+                                                                                <input type="radio" name="stars"
+                                                                                       value="excellent"/>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                                <span class="icon">★</span>
+                                                                            </label>
+                                                                            <div class="rating three-star d-none">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="name">Name</label>
+                                                                    <input type="text" class="form-control" id="name"
+                                                                           placeholder="Enter Your name" name="name"
+                                                                           required="required"/>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="email">Email</label>
+                                                                    <input type="text" class="form-control" name="email"
+                                                                           placeholder="Email" required="required"/>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label for="review">Review Title</label>
+                                                                    <input type="text" class="form-control" name="title"
+                                                                           placeholder="Enter your Review Subjects"
+                                                                           required="required"/>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label for="review">Review Description</label>
+                                                                    <textarea class="form-control" name="description"
+                                                                              placeholder="Wrire Your Testimonial Here"
+                                                                              id="exampleFormControlTextarea1"
+                                                                              rows="6"></textarea>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <button class="btn btn-solid" type="submit">Submit
+                                                                        YOur
+                                                                        Review
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- service section end -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- DUMMY SECTION END-->
 
-                                <!-- new products section start -->
-                                <t t-set="new_products"
-                                   t-value="request.env['product.template'].sudo().search([('is_new_product','=',True)])"/>
-                                <t t-set="new_products_len"
-                                   t-value="len(request.env['product.template'].sudo().search([('is_new_product','=',True)]))"/>
-                                <t t-set="for_loop_len" t-value="int((new_products_len/3)+1)"/>
-                                <t t-if="new_products">
-                                    <div class="theme-card">
-                                        <h5 class="title-border">new product</h5>
-                                        <div class="offer-slider slide-1">
-
-                                            <t t-set="new_product_count" t-value="1"/>
-                                            <t t-foreach="range(for_loop_len)" t-as="i">
-                                                <t t-if="new_products_len>=new_product_count">
-                                                    <div>
-                                                        <t t-foreach="range(3)" t-as="j">
-                                                            <t t-if="new_products_len>=new_product_count">
-                                                                <div class="media">
-                                                                    <a t-attf-href="/shop/product/#{ slug(new_products[new_product_count-1]) }">
-
-                                                                        <img t-attf-src="/web/image/product.template/#{new_products[new_product_count-1].id}/image_1920"
-                                                                             class="img-fluid"
-                                                                             alt="Product image"
-                                                                        />
-                                                                    </a>
-                                                                    <div class="media-body align-self-center">
-                                                                        <a t-attf-href="/shop/product/#{ slug(new_products[new_product_count-1]) }">
-                                                                            <h6>
-                                                                                <t t-esc="new_products[new_product_count-1].name"/>
-                                                                            </h6>
-                                                                        </a>
-                                                                        <h4>
-                                                                            <t t-esc="new_products[new_product_count-1].currency_id.symbol"/>
-                                                                            <t t-esc="new_products[new_product_count-1].list_price"/>
-                                                                        </h4>
-                                                                    </div>
-                                                                </div>
-                                                                <t t-set="new_product_count"
-                                                                   t-value="new_product_count+1"/>
-                                                            </t>
-                                                        </t>
+                <!-- RELATED PRODUCT SECTION START-->
+                <t t-if="product.alternative_product_ids">
+                    <section class="section-b-space ratio_square product-related">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 product-related">
+                                    <h2 class="title pt-0">related products</h2>
+                                </div>
+                            </div>
+                            <div class="slide-6">
+                                <t t-foreach="product.alternative_product_ids" t-as="alternative_product">
+                                    <div class="">
+                                        <div class="product-box">
+                                            <div class="img-block">
+                                                <a href="#">
+                                                    <!--                                            <img src="/theme_bigboost/static/src/img/2.jpg" class=" img-fluid bg-img"-->
+                                                    <!--                                                 alt=""/>-->
+                                                    <img t-attf-src="/web/image/product.template/#{alternative_product.id}/image_1920"
+                                                         class="img-fluid "
+                                                         alt="Product image" style="height: 183px;"
+                                                    />
+                                                </a>
+                                                <form action="/shop/cart/update"
+                                                      method="post">
+                                                    <t t-set="product_variant_id"
+                                                       t-value="alternative_product._get_first_possible_variant_id()"/>
+                                                    <input name="product_id"
+                                                           t-att-value="product_variant_id"
+                                                           type="hidden"/>
+                                                    <t t-set="product_variant"
+                                                       t-value="product_variant or product._create_first_product_variant()"/>
+                                                    <t t-set="in_wish"
+                                                       t-value="product_variant and product_variant._is_in_wishlist()"/>
+                                                    <div class="cart-details">
+                                                        <a href="#" tabindex="0" class="addcart-box a-submit"
+                                                           title="Add to Cart">
+                                                            <i class="ti-shopping-cart"></i>
+                                                        </a>
+                                                        <a href="#" title="Add to Wishlist">
+                                                            <i class="ti-heart o_add_wishlist"
+                                                               t-att-data-product-template-id="alternative_product.id"
+                                                               t-att-data-product-product-id="product_variant_id"
+                                                               data-action="o_wishlist"
+                                                               aria-hidden="true"></i>
+                                                        </a>
+                                                        <a href="#" data-toggle="modal"
+                                                           t-attf-data-target="#quick-view-#{alternative_product.id}"
+                                                           title="Quick View">
+                                                            <i class="ti-search" aria-hidden="true"></i>
+                                                        </a>
+                                                        <a href="#"
+                                                           title="Compare">
+                                                            <i class="ti-reload o_add_compare"
+                                                                t-att-data-product-template-id="alternative_product.id"
+                                                               t-att-data-product-product-id="product_variant_id"
+                                                               data-action="o_comparelist" aria-hidden="true"></i>
+                                                        </a>
                                                     </div>
-                                                </t>
-                                            </t>
-
-
+                                                </form>
+                                            </div>
+                                            <div class="product-info">
+                                                <a href="#">
+                                                    <h6>
+                                                        <t t-esc="alternative_product.name"/>
+                                                    </h6>
+                                                </a>
+                                                <h5>
+                                                    <t t-esc="alternative_product.currency_id.symbol"/>
+                                                    <t t-esc="alternative_product.list_price"/>
+                                                </h5>
+                                            </div>
+                                            <div class="addtocart_box">
+                                                <div class="addtocart_detail">
+                                                    <div>
+                                                        <div class="color">
+                                                            <h5>color</h5>
+                                                            <ul class="color-variant">
+                                                                <li class="light-purple active"></li>
+                                                                <li class="theme-blue"></li>
+                                                                <li class="theme-color"></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="size">
+                                                            <h5>size</h5>
+                                                            <ul class="size-box">
+                                                                <li class="active">xs</li>
+                                                                <li>s</li>
+                                                                <li>m</li>
+                                                                <li>l</li>
+                                                                <li>xl</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="addtocart_btn">
+                                                            <a href="javascript:void(0)" data-toggle="modal"
+                                                               class="closeCartbox" data-target="#addtocart"
+                                                               tabindex="0">add to
+                                                                cart
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="close-cart">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </t>
-                                <!-- new products section end -->
-
                             </div>
-                            <div class="col-lg-9 col-sm-12 col-xs-12">
-                                <div class="container-fluid p-0">
+                        </div>
+                    </section>
+                </t>
+                <!-- RELATED PRODUCT SECTION END-->
+
+                <!-- Quick View Popup Start-->
+                <t t-if="product.alternative_product_ids">
+                <t t-foreach="product.alternative_product_ids" t-as="product">
+                    <div class="modal fade bd-example-modal-lg theme-modal" t-attf-id="quick-view-#{product.id}"
+                         tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content quick-view-modal">
+                                <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">X</span>
+                                    </button>
+                                    <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                    <t t-set="combination_info"
+                                       t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                    <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                    <section
+                    t-attf-class="container-fluid py-2 #{'discount' if combination_info['has_discounted_price'] else ''}"
+                    id="product_detail">
                                     <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="filter-main-btn mb-2">
-                                                <span class="filter-btn">
-                                                    <i class="fa fa-filter" aria-hidden="true"></i>
-                                                    filter
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <t t-call="website_sale.shop_product_carousel"/>
+                                        <div class="col-lg-6 col-xs-12 pt32" >
+<!--                                             <t t-call="website_sale.shop_product_carousel"/>-->
+                                            <img t-attf-src="/web/image/product.template/#{product.id}/image_1920" alt=""
+                                                             class="img-fluid"/>
                                         </div>
                                         <div class="col-lg-6 rtl-text product-right" id="product_details">
-                                            <h1 itemprop="name" t-field="product.name" class="te_product_name d-none">
-                                                Product Name
-                                            </h1>
+                                            <h1 itemprop="name" t-field="product.name" class="te_product_name d-none">Product Name</h1>
                                             <div class="o_not_editable d-none">
                                                 <p t-field="product.description_sale" class="te_prod_desc"/>
                                             </div>
-
-
                                             <h2>
                                                 <t t-esc="product.name"/>
                                             </h2>
-
-
                                             <span itemprop="url" style="display:none;" t-esc="product.website_url"/>
-                                            <form t-if="product._is_add_to_cart_possible()" action="/shop/cart/update"
-                                                  method="POST">
-                                                <input type="hidden" name="csrf_token"
-                                                       t-att-value="request.csrf_token()"/>
+                                            <form t-if="product._is_add_to_cart_possible()" action="/shop/cart/update" method="POST">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <div class="js_product js_main_product">
                                                     <t t-call="website_sale.product_price"/>
-
+                                                    <t t-if="product.description_sale">
+                                                        <div class="border-product">
+                                                            <h6 class="product-title">product details:</h6>
+                                                            <p>
+                                                                <t t-esc="product.description_sale"/>
+                                                            </p>
+                                                        </div>
+                                                    </t>
                                                     <div class="pt16"/>
-
                                                     <t t-if="not request.website.viewref('website_sale.product_variants').active">
                                                         <t t-placeholder="select">
                                                             <input type="hidden" class="product_id" name="product_id"
                                                                    t-att-value="product_variant.id"/>
-                                                            <input type="hidden" class="product_template_id"
-                                                                   name="product_template_id"
+                                                            <input type="hidden" class="product_template_id" name="product_template_id"
                                                                    t-att-value="product.id"/>
                                                             <t t-if="combination" t-call="sale.variants">
                                                                 <t t-set="ul_class" t-value="'flex-column'"/>
@@ -226,21 +804,17 @@
                                                     </t>
                                                     <t t-else="">
                                                         <t t-if="not product.has_dynamic_attributes() and not product._has_no_variant_attributes() and not product._has_is_custom_values()">
-                                                            <t t-set="attribute_exclusions"
-                                                               t-value="product._get_attribute_exclusions()"/>
+                                                            <t t-set="attribute_exclusions" t-value="product._get_attribute_exclusions()"/>
                                                             <t t-set="filtered_sorted_variants"
                                                                t-value="product._get_possible_variants_sorted()"/>
                                                             <ul class="d-none js_add_cart_variants"
                                                                 t-att-data-attribute_exclusions="json.dumps(attribute_exclusions)"/>
-                                                            <input type="hidden" class="product_template_id"
-                                                                   t-att-value="product.id"/>
-                                                            <input type="hidden"
-                                                                   t-if="len(filtered_sorted_variants) == 1"
+                                                            <input type="hidden" class="product_template_id" t-att-value="product.id"/>
+                                                            <input type="hidden" t-if="len(filtered_sorted_variants) == 1"
                                                                    class="product_id" name="product_id"
                                                                    t-att-value="filtered_sorted_variants[0].id"/>
                                                             <t t-if="len(filtered_sorted_variants) &gt; 1">
-                                                                <div t-foreach="filtered_sorted_variants"
-                                                                     t-as="variant_id"
+                                                                <div t-foreach="filtered_sorted_variants" t-as="variant_id"
                                                                      class="custom-control custom-radio">
                                                                     <t t-set="template_combination_info"
                                                                        t-value="product._get_combination_info(only_template=True, add_qty=add_qty, pricelist=pricelist)"/>
@@ -254,8 +828,7 @@
                                                                            t-att-data-price="combination_info['price']"
                                                                            t-att-data-combination="variant_id.product_template_attribute_value_ids.ids"/>
                                                                     <label t-attf-for="radio_variant_#{variant_id.id}"
-                                                                           label-default="label-default"
-                                                                           class="custom-control-label">
+                                                                           label-default="label-default" class="custom-control-label">
                                                                         <span t-esc="combination_info['display_name']"/>
                                                                         <t t-set="diff_price"
                                                                            t-value="website.currency_id.compare_amounts(combination_info['price'], template_combination_info['price'])"/>
@@ -272,8 +845,7 @@
                                                         <t t-else="">$0</t>
                                                     </t>
 
-                                                    <p t-if="True" class="css_not_available_msg alert alert-warning">
-                                                        This combination does
+                                                    <p t-if="True" class="css_not_available_msg alert alert-warning">This combination does
                                                         not exist.
                                                     </p>
 
@@ -289,8 +861,7 @@
                                                                     </button>
                                                                 </span>
                                                                 <input type="text" name="add_qty"
-                                                                       class="form-control input-number quantity"
-                                                                       value="1"/>
+                                                                       class="form-control input-number quantity" value="1"/>
                                                                 <span class="input-group-prepend">
                                                                     <button type="button"
                                                                             class="btn quantity-right-plus"
@@ -302,268 +873,38 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="product-buttons">
-                                                        <a role="button"
-                                                           class="btn btn-solid btn-lg mt24 a-submit te_theme_button quick-add-to-cart"
-                                                           href="#">
-                                                            Add to Cart
-                                                        </a>
-                                                        <a id="buy_now" role="button" href="#"
-                                                           class="mt24 btn btn-solid">buy now
-                                                        </a>
-                                                    </div>
-                                                    <t t-if="product.description_sale">
-                                                        <div class="border-product">
-                                                            <h6 class="product-title">product details:</h6>
-                                                            <p>
-                                                                <t t-esc="product.description_sale"/>
-                                                            </p>
-                                                        </div>
-                                                    </t>
+                                                     <div class="product-buttons">
+                                                    <a role="button"
+                                                       class="btn btn-solid btn-lg mt24 a-submit te_theme_button quick-add-to-cart"
+                                                       href="#">
+                                                        <span class="fa fa-shopping-cart"/>
+                                                        Add to Cart
+                                                    </a>
+                                                     <a t-attf-href="/shop/product/#{slug(product)}" class="mt24 btn btn-solid">view detail</a>
+                                                     </div>
                                                     <div class="availability_messages o_not_editable"/>
                                                 </div>
                                             </form>
-                                            <p t-elif="not product.active" class="alert alert-warning">This product is
-                                                no longer
+                                            <p t-elif="not product.active" class="alert alert-warning">This product is no longer
                                                 available.
                                             </p>
-                                            <p t-else="" class="alert alert-warning">This product has no valid
-                                                combination.
-                                            </p>
-
-                                            <!-- dummy start -->
-                                            <div class="product-right">
-                                                <div class="border-product">
-                                                    <h6 class="product-title">share it</h6>
-                                                    <div class="product-icon">
-                                                        <ul class="product-social">
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="fa fa-facebook"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="fa fa-google-plus"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="fa fa-twitter"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="fa fa-instagram"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="fa fa-rss"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <form class="d-inline-block">
-                                                            <t t-set="product_variant"
-                                                               t-value="product_variant or product._create_first_product_variant()"/>
-                                                            <t t-set="in_wish"
-                                                               t-value="product_variant and product_variant._is_in_wishlist()"/>
-                                                            <button type="button" role="button"
-                                                                    class="wishlist-btn o_add_wishlist_dyn"
-                                                                    t-att-disabled='in_wish or None'
-                                                                    t-att-data-product-template-id="product.id"
-                                                                    t-att-data-product-product-id="product_variant.id"
-                                                                    data-action="o_wishlist">
-                                                                <i class="fa fa-heart"></i>
-                                                                <span class="title-font">Add To WishList</span>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="border-product">
-                                                    <h6 class="product-title">Time Reminder</h6>
-                                                    <div class="timer">
-                                                        <p id="demo">
-                                                            <span>25
-                                                                <span class="padding-l">:</span>
-                                                                <span class="timer-cal">Days</span>
-                                                            </span>
-                                                            <span>22
-                                                                <span class="padding-l">:</span>
-                                                                <span class="timer-cal">Hrs</span>
-                                                            </span>
-                                                            <span>13
-                                                                <span class="padding-l">:</span>
-                                                                <span class="timer-cal">Min</span>
-                                                            </span>
-                                                            <span>57
-                                                                <span class="timer-cal">Sec</span>
-                                                            </span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- dummy end -->
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- product tab start -->
-                                <div class="tab-product m-0">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-12">
-                                            <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" id="top-home-tab" data-toggle="tab"
-                                                       href="#top-home" role="tab" aria-selected="true"><i
-                                                            class="icofont icofont-ui-home"></i>Description
-                                                    </a>
-                                                    <div class="material-border"></div>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="profile-top-tab" data-toggle="tab"
-                                                       href="#top-profile" role="tab" aria-selected="false"><i
-                                                            class="icofont icofont-man-in-glasses"></i>Details
-                                                    </a>
-                                                    <div class="material-border"></div>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="contact-top-tab" data-toggle="tab"
-                                                       href="#top-contact" role="tab" aria-selected="false"><i
-                                                            class="icofont icofont-contacts"></i>Video
-                                                    </a>
-                                                    <div class="material-border"></div>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="review-top-tab" data-toggle="tab"
-                                                       href="#top-review" role="tab" aria-selected="false"><i
-                                                            class="icofont icofont-contacts"></i>Write Review
-                                                    </a>
-                                                    <div class="material-border"></div>
-                                                </li>
-                                            </ul>
-                                            <div class="tab-content nav-material" id="top-tabContent">
-                                                <div class="tab-pane fade show active" id="top-home" role="tabpanel"
-                                                     aria-labelledby="top-home-tab">
-                                                    <p>
-                                                        <t t-raw="product.website_description"/>
-                                                    </p>
-                                                </div>
-                                                <div class="tab-pane fade" id="top-profile" role="tabpanel"
-                                                     aria-labelledby="profile-top-tab">
-                                                    <p>
-                                                        <t t-raw="product.website_details"/>
-                                                    </p>
-                                                </div>
-                                                <div class="tab-pane fade" id="top-contact" role="tabpanel"
-                                                     aria-labelledby="contact-top-tab">
-                                                    <t t-if="product.product_video_url">
-                                                        <div class="mt-3 text-center">
-                                                            <iframe width="560" height="315"
-                                                                    t-att-src="product.product_video_url"
-                                                                    allow="autoplay;"
-                                                                    allowfullscreen="allowfullscreen"></iframe>
-                                                        </div>
-                                                    </t>
-                                                </div>
-                                                <div class="tab-pane fade" id="top-review" role="tabpanel"
-                                                     aria-labelledby="review-top-tab">
-                                                    <form class="theme-form " action="/review-created" id="reviewCreated" method="post">
-                                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                                        <input type="hidden" name="product_id" t-att-value="product.id"/>
-                                                        <div class="form-row">
-                                                            <div class="col-md-12">
-                                                                <div class="media">
-                                                                    <label>Rating</label>
-                                                                    <div class="media-body ml-3 rating">
-                                                                        <label>
-                                                                            <input type="radio" name="stars" value="poor" required="required"/>
-                                                                            <span class="icon">★</span>
-                                                                        </label>
-                                                                        <label>
-                                                                            <input type="radio" name="stars" value="fair"/>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                        </label>
-                                                                        <label>
-                                                                            <input type="radio" name="stars" value="good"/>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                        </label>
-                                                                        <label>
-                                                                            <input type="radio" name="stars" value="vgood"/>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                        </label>
-                                                                        <label>
-                                                                            <input type="radio" name="stars" value="excellent"/>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                            <span class="icon">★</span>
-                                                                        </label>
-                                                                        <div class="rating three-star d-none">
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="name">Name</label>
-                                                                <input type="text" class="form-control" id="name"
-                                                                       placeholder="Enter Your name" name="name"
-                                                                       required="required"/>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="email">Email</label>
-                                                                <input type="text" class="form-control" name="email"
-                                                                       placeholder="Email" required="required"/>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <label for="review">Review Title</label>
-                                                                <input type="text" class="form-control" name="title"
-                                                                       placeholder="Enter your Review Subjects"
-                                                                       required="required"/>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <label for="review">Review Description</label>
-                                                                <textarea class="form-control" name="description"
-                                                                          placeholder="Wrire Your Testimonial Here"
-                                                                          id="exampleFormControlTextarea1"
-                                                                          rows="6"></textarea>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <button class="btn btn-solid" type="submit">Submit YOur
-                                                                    Review
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                            <p t-else="" class="alert alert-warning">This product has no valid combination.</p>
                                         </div>
                                     </div>
+                                    </section>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <!-- DUMMY SECTION END-->
+                </t>
+                </t>
+                <!-- Quick View Popup End-->
+            </div>
 
             <t t-set="additional_title" t-value="product.name"/>
-            <div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
+            <div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale d-none">
                 <section
-                        t-attf-class="container d-none py-2 oe_website_sale #{'discount' if combination_info['has_discounted_price'] else ''}"
+                        t-attf-class="container d-none py-2 #{'discount' if combination_info['has_discounted_price'] else ''}"
                         id="product_detail" t-att-data-view-track="view_track and '1' or '0'">
                     <div class="row">
                         <div class="col-md-4">
@@ -765,7 +1106,7 @@
                                 <a role="button"
                                    class="btn btn-solid btn-lgte_theme_button quick-add-to-cart"
                                    href="/">
-                                   HOME
+                                    HOME
                                 </a>
                                 <a t-attf-href="/shop/product/#{slug(product)}" class=" btn btn-solid">GO BACK
                                 </a>
