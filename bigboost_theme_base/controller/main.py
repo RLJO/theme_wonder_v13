@@ -16,9 +16,11 @@ class Website(Website):
     def index(self, **kw):
         banners = request.env['banner.banner'].sudo().search([])
         sales = request.env['summer.sale'].sudo().search([])
+        sale_products = request.env['summer.sale.product'].sudo().search([])
         return request.render('bigboost_theme_base.homepage_template', {
             'banners': banners,
             'sales': sales,
+            'sale_products': sale_products,
         })
 
 

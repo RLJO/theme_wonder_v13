@@ -144,3 +144,24 @@ class homeSummerSale3(models.Model):
     active_style_3 = fields.Boolean('Summer Sale Style Active 3')
     sale_description_style_3 = fields.Html('Summer Sale Description')
     sale_promo_code_style_3 = fields.Html('Summer Sale Promo Code')
+
+
+class homeSummerSaleProduct(models.Model):
+    _name = "summer.sale.product"
+
+    sequence = fields.Integer('Sequence')
+    sale_style_1_ids = fields.One2many('summer.sale.product1', 'sale_style_1_id', string='Summer Sale With Product')
+
+
+class homeSummerSaleProduct1(models.Model):
+    _name = "summer.sale.product1"
+
+    sale_style_1_id = fields.Many2one('summer.sale.product', string='Summer Sale')
+    active_style = fields.Boolean('Summer Sale Style Active')
+    off_percentage = fields.Char('Off Percentage')
+    image = fields.Binary('Image')
+    description = fields.Html('Description')
+    product_id = fields.Many2one('product.template', string="Product")
+    title1 = fields.Char('Title 1')
+    title2 = fields.Char('Title 2')
+    title3 = fields.Char('Title 3')

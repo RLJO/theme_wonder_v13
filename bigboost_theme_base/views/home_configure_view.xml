@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- ======== Banner styele =====-->
+    <!-- ======== Banner style =====-->
     <record id="banner_banner_form" model="ir.ui.view">
         <field name="name">banner_banner.form</field>
         <field name='model'>banner.banner</field>
@@ -144,9 +144,9 @@
     </record>
 
     <menuitem id="home_main_menu" name="Home Configuration" parent="website.menu_website_configuration" sequence="9"/>
-    <menuitem id="banner_banner_menu" name="Home Banner" action="action_banner_banner" parent="home_main_menu"/>
+    <menuitem id="banner_banner_menu" name="Banners" action="action_banner_banner" parent="home_main_menu"/>
 
-    <!-- ======== Summer sale styele =====-->
+    <!-- ======== Summer sale style =====-->
     <record id="summer_sale_form" model="ir.ui.view">
         <field name="name">summer.sale.form</field>
         <field name='model'>summer.sale</field>
@@ -212,6 +212,58 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="summer_sale_menu" name="Home Summer Sale" action="action_summer_sale" parent="home_main_menu"/>
+    <menuitem id="summer_sale_menu" name="Summer Sale Description" action="action_summer_sale" parent="home_main_menu"/>
+
+    <!-- ======== Summer sale With Product style =====-->
+    <record id="summer_sale_product_form" model="ir.ui.view">
+        <field name="name">summer.sale.product.form</field>
+        <field name='model'>summer.sale.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="sequence"/>
+                    </group>
+                    <notebook>
+                        <page string="Summer Sale With Product Style 1">
+                            <group>
+                                <field name="sale_style_1_ids">
+                                    <tree editable="bottom">
+                                        <field name="active_style"/>
+                                        <field name="off_percentage"/>
+                                        <field name="image"/>
+                                        <field name="description"/>
+                                        <field name="product_id"/>
+                                        <field name="title1"/>
+                                        <field name="title2"/>
+                                        <field name="title3"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="summer_sale_product_tree" model="ir.ui.view">
+        <field name="name">summer.sale.tree</field>
+        <field name='model'>summer.sale.product</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_summer_sale_product" model="ir.actions.act_window">
+        <field name="name">Home Summer Sale With Product</field>
+        <field name="res_model">summer.sale.product</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="summer_sale_product_menu" name="Summer Sale With Product" action="action_summer_sale_product" parent="home_main_menu"/>
+
 
 </odoo>

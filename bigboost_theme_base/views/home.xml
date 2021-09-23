@@ -431,6 +431,72 @@
                     </t>
                 </t>
             </t>
+
+
+            <!-- ======= Summer Sale With Product style ========-->
+            <t t-foreach="sale_products" t-as="sale_product">
+                <t t-foreach="sale_product.sale_style_1_ids" t-as="s1">
+                    <t t-if="s1.active_style">
+                        <section class="section-b-space banner-sec landscape-layout ">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-2 col-6 pe-0">
+                                        <a href="#">
+                                            <div class="left-banner">
+                                                <h2><t t-esc="s1.off_percentage"/> off</h2>
+                                                <img t-att-src="'data:image/png;base64,%s' % to_text(s1.image)" class=" img-fluid" alt=""/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-7 col-12 ps-0 order-class">
+                                        <div class="center-banner">
+                                            <div class="center">
+                                                <a t-attf-href="/shop/product/#{ slug(s1) }">
+                                                    <img t-att-src="'data:image/png;base64,%s' % to_text(s1.product_id.image_1920)" class=" img-fluid" alt=""/>
+                                                </a>
+                                            </div>
+                                            <div class="contain-left">
+                                                <div>
+                                                    <h4>
+                                                        <t t-raw="s1.description"/>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <div class="contain-right">
+                                                <div>
+                                                    <a t-attf-href="/shop/product/#{ slug(s1.product_id) }">
+                                                        <h6>
+                                                            <t t-esc="s1.product_id.name"/>
+                                                        </h6>
+                                                    </a>
+                                                    <h5>
+                                                        <t t-esc="s1.product_id.list_price"/>
+                                                    </h5>
+                                                    <h6>
+                                                        <span>sale ending</span>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <a href="#">
+                                            <div class="right-banner">
+                                                <div>
+                                                    <h5><t t-esc="s1.title1"/></h5>
+                                                    <h2><t t-esc="s1.title2"/></h2>
+                                                    <h6><t t-esc="s1.title3"/></h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </t>
+                </t>
+            </t>
+
         </t>
     </template>
 
