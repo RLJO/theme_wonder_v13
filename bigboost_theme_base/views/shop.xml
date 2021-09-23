@@ -384,12 +384,8 @@
                                                                                     <t t-set="in_wish"
                                                                                        t-value="product_variant and product_variant._is_in_wishlist()"/>
                                                                                     <div class="cart-details">
-                                                                                        <a href="#" tabindex="0"
-                                                                                           class="addcart-box a-submit"
-                                                                                           title="Add to Cart">
-                                                                                            <i
-                                                                                                    class="ti-shopping-cart"></i>
-                                                                                        </a>
+<!--                                                                                        <a href="#" tabindex="0" class="addcart-box a-submit" title="Add to Cart"><i class="ti-shopping-cart"></i></a>-->
+                                                                                        <a tabindex="0" class="addcart-box" title="Quick shop"><i class="ti-shopping-cart" ></i></a>
                                                                                         <a href="#"
                                                                                            title="Add to Wishlist">
                                                                                             <i
@@ -435,37 +431,85 @@
                                                                                     </h5>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="addtocart_box d-none">
+                                                                            <div class="addtocart_box">
                                                                                 <div class="addtocart_detail">
-                                                                                    <div>
-                                                                                        <div class="color">
-                                                                                            <h5>color</h5>
-                                                                                            <ul class="color-variant">
-                                                                                                <li class="light-purple active"></li>
-                                                                                                <li class="theme-blue"></li>
-                                                                                                <li class="theme-color"></li>
-                                                                                            </ul>
+                                                                                    <form t-if="product._is_add_to_cart_possible()"
+                                                                                          action="/shop/cart/update"
+                                                                                          method="POST">
+                                                                                        <input type="hidden"
+                                                                                               name="csrf_token"
+                                                                                               t-att-value="request.csrf_token()"/>
+                                                                                        <div class="js_product js_main_product">
+                                                                                            <t t-placeholder="select">
+
+                                                                                                <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                                                                            <t t-set="combination_info"
+                                                                                               t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                                            <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                                                                               <input type="hidden"
+                                                                                                       class="product_id"
+                                                                                                       name="product_id"
+                                                                                                       t-att-value="product_variant.id"/>
+                                                                                                <input type="hidden"
+                                                                                                       class="product_template_id"
+                                                                                                       name="product_template_id"
+                                                                                                       t-att-value="product.id"/>
+                                                                                                <t t-if="combination"
+                                                                                                   t-call="sale.variants">
+                                                                                                    <t t-set="ul_class"
+                                                                                                       t-value="'flex-column'"/>
+                                                                                                    <t t-set="parent_combination"
+                                                                                                       t-value="None"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <ul class="d-none js_add_cart_variants"
+                                                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                                                </t>
+                                                                                            </t>
+                                                                                            <div class="addtocart_btn">
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
+                                                                                                    cart
+                                                                                                </a>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="size">
-                                                                                            <h5>size</h5>
-                                                                                            <ul class="size-box">
-                                                                                                <li class="active">xs
-                                                                                                </li>
-                                                                                                <li>s</li>
-                                                                                                <li>m</li>
-                                                                                                <li>l</li>
-                                                                                                <li>xl</li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                        <div class="addtocart_btn">
-                                                                                            <a href="javascript:void(0)"
-                                                                                               data-toggle="modal"
-                                                                                               class="closeCartbox"
-                                                                                               data-target="#addtocart"
-                                                                                               tabindex="0">add to cart
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    </form>
+
+<!--                                                                                    <div>-->
+<!--                                                                                        <div class="color">-->
+<!--                                                                                            <h5>color</h5>-->
+<!--                                                                                            <ul class="color-variant">-->
+<!--                                                                                                <li class="light-purple active"></li>-->
+<!--                                                                                                <li class="theme-blue"></li>-->
+<!--                                                                                                <li class="theme-color"></li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="size">-->
+<!--                                                                                            <h5>size</h5>-->
+<!--                                                                                            <ul class="size-box">-->
+<!--                                                                                                <li class="active">xs-->
+<!--                                                                                                </li>-->
+<!--                                                                                                <li>s</li>-->
+<!--                                                                                                <li>m</li>-->
+<!--                                                                                                <li>l</li>-->
+<!--                                                                                                <li>xl</li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="addtocart_btn">-->
+<!--                                                                                            <a href="javascript:void(0)"-->
+<!--                                                                                               data-toggle="modal"-->
+<!--                                                                                               class="closeCartbox"-->
+<!--                                                                                               data-target="#addtocart"-->
+<!--                                                                                               tabindex="0">add to cart-->
+<!--                                                                                            </a>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
                                                                                 </div>
                                                                                 <div class="close-cart">
                                                                                     <i class="fa fa-times"
@@ -901,9 +945,14 @@
                                                                                                 </t>
                                                                                             </t>
                                                                                             <div class="addtocart_btn">
-                                                                                                <a href="#"
-                                                                                                   class="text-primary a-submit"
-                                                                                                   tabindex="0">add to
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
                                                                                                     cart
                                                                                                 </a>
                                                                                             </div>
@@ -1433,12 +1482,13 @@
                                                                                     <t t-set="in_wish"
                                                                                        t-value="product_variant and product_variant._is_in_wishlist()"/>
                                                                                     <div class="cart-details">
-                                                                                        <a href="#" tabindex="0"
-                                                                                           class="addcart-box a-submit"
-                                                                                           title="Add to Cart">
-                                                                                            <i
-                                                                                                    class="ti-shopping-cart"></i>
-                                                                                        </a>
+<!--                                                                                        <a href="#" tabindex="0"-->
+<!--                                                                                           class="addcart-box a-submit"-->
+<!--                                                                                           title="Add to Cart">-->
+<!--                                                                                            <i-->
+<!--                                                                                                    class="ti-shopping-cart"></i>-->
+<!--                                                                                        </a>-->
+                                                                                        <a tabindex="0" class="addcart-box" title="Quick shop"><i class="ti-shopping-cart" ></i></a>
                                                                                         <a href="#"
                                                                                            title="Add to Wishlist">
                                                                                             <i
@@ -1484,37 +1534,85 @@
                                                                                     </h5>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="addtocart_box d-none">
+                                                                            <div class="addtocart_box">
                                                                                 <div class="addtocart_detail">
-                                                                                    <div>
-                                                                                        <div class="color">
-                                                                                            <h5>color</h5>
-                                                                                            <ul class="color-variant">
-                                                                                                <li class="light-purple active"></li>
-                                                                                                <li class="theme-blue"></li>
-                                                                                                <li class="theme-color"></li>
-                                                                                            </ul>
+                                                                                    <form t-if="product._is_add_to_cart_possible()"
+                                                                                          action="/shop/cart/update"
+                                                                                          method="POST">
+                                                                                        <input type="hidden"
+                                                                                               name="csrf_token"
+                                                                                               t-att-value="request.csrf_token()"/>
+                                                                                        <div class="js_product js_main_product">
+                                                                                            <t t-placeholder="select">
+
+                                                                                                <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                                                                            <t t-set="combination_info"
+                                                                                               t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                                            <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                                                                               <input type="hidden"
+                                                                                                       class="product_id"
+                                                                                                       name="product_id"
+                                                                                                       t-att-value="product_variant.id"/>
+                                                                                                <input type="hidden"
+                                                                                                       class="product_template_id"
+                                                                                                       name="product_template_id"
+                                                                                                       t-att-value="product.id"/>
+                                                                                                <t t-if="combination"
+                                                                                                   t-call="sale.variants">
+                                                                                                    <t t-set="ul_class"
+                                                                                                       t-value="'flex-column'"/>
+                                                                                                    <t t-set="parent_combination"
+                                                                                                       t-value="None"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <ul class="d-none js_add_cart_variants"
+                                                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                                                </t>
+                                                                                            </t>
+                                                                                            <div class="addtocart_btn">
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
+                                                                                                    cart
+                                                                                                </a>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="size">
-                                                                                            <h5>size</h5>
-                                                                                            <ul class="size-box">
-                                                                                                <li class="active">xs
-                                                                                                </li>
-                                                                                                <li>s</li>
-                                                                                                <li>m</li>
-                                                                                                <li>l</li>
-                                                                                                <li>xl</li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                        <div class="addtocart_btn">
-                                                                                            <a href="javascript:void(0)"
-                                                                                               data-toggle="modal"
-                                                                                               class="closeCartbox"
-                                                                                               data-target="#addtocart"
-                                                                                               tabindex="0">add to cart
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    </form>
+
+<!--                                                                                    <div>-->
+<!--                                                                                        <div class="color">-->
+<!--                                                                                            <h5>color</h5>-->
+<!--                                                                                            <ul class="color-variant">-->
+<!--                                                                                                <li class="light-purple active"></li>-->
+<!--                                                                                                <li class="theme-blue"></li>-->
+<!--                                                                                                <li class="theme-color"></li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="size">-->
+<!--                                                                                            <h5>size</h5>-->
+<!--                                                                                            <ul class="size-box">-->
+<!--                                                                                                <li class="active">xs-->
+<!--                                                                                                </li>-->
+<!--                                                                                                <li>s</li>-->
+<!--                                                                                                <li>m</li>-->
+<!--                                                                                                <li>l</li>-->
+<!--                                                                                                <li>xl</li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="addtocart_btn">-->
+<!--                                                                                            <a href="javascript:void(0)"-->
+<!--                                                                                               data-toggle="modal"-->
+<!--                                                                                               class="closeCartbox"-->
+<!--                                                                                               data-target="#addtocart"-->
+<!--                                                                                               tabindex="0">add to cart-->
+<!--                                                                                            </a>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
                                                                                 </div>
                                                                                 <div class="close-cart">
                                                                                     <i class="fa fa-times"
@@ -1922,12 +2020,13 @@
                                                                                     <t t-set="in_wish"
                                                                                        t-value="product_variant and product_variant._is_in_wishlist()"/>
                                                                                     <div class="cart-details">
-                                                                                        <a href="#" tabindex="0"
-                                                                                           class="addcart-box a-submit"
-                                                                                           title="Add to Cart">
-                                                                                            <i
-                                                                                                    class="ti-shopping-cart"></i>
-                                                                                        </a>
+<!--                                                                                        <a href="#" tabindex="0"-->
+<!--                                                                                           class="addcart-box a-submit"-->
+<!--                                                                                           title="Add to Cart">-->
+<!--                                                                                            <i-->
+<!--                                                                                                    class="ti-shopping-cart"></i>-->
+<!--                                                                                        </a>-->
+                                                                                        <a tabindex="0" class="addcart-box" title="Quick shop"><i class="ti-shopping-cart" ></i></a>
                                                                                         <a href="#"
                                                                                            title="Add to Wishlist">
                                                                                             <i
@@ -1975,41 +2074,89 @@
                                                                                     </h5>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="addtocart_box d-none">
+                                                                            <div class="addtocart_box">
                                                                                 <div class="addtocart_detail">
-                                                                                    <div>
-                                                                                        <div class="color">
-                                                                                            <h5>color</h5>
-                                                                                            <ul class="color-variant">
-                                                                                                <li class="light-purple active"></li>
-                                                                                                <li class="theme-blue"></li>
-                                                                                                <li class="theme-color"></li>
-                                                                                            </ul>
+                                                                                    <form t-if="product._is_add_to_cart_possible()"
+                                                                                          action="/shop/cart/update"
+                                                                                          method="POST">
+                                                                                        <input type="hidden"
+                                                                                               name="csrf_token"
+                                                                                               t-att-value="request.csrf_token()"/>
+                                                                                        <div class="js_product js_main_product">
+                                                                                            <t t-placeholder="select">
+
+                                                                                                <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                                                                            <t t-set="combination_info"
+                                                                                               t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                                            <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                                                                               <input type="hidden"
+                                                                                                       class="product_id"
+                                                                                                       name="product_id"
+                                                                                                       t-att-value="product_variant.id"/>
+                                                                                                <input type="hidden"
+                                                                                                       class="product_template_id"
+                                                                                                       name="product_template_id"
+                                                                                                       t-att-value="product.id"/>
+                                                                                                <t t-if="combination"
+                                                                                                   t-call="sale.variants">
+                                                                                                    <t t-set="ul_class"
+                                                                                                       t-value="'flex-column'"/>
+                                                                                                    <t t-set="parent_combination"
+                                                                                                       t-value="None"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <ul class="d-none js_add_cart_variants"
+                                                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                                                </t>
+                                                                                            </t>
+                                                                                            <div class="addtocart_btn">
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
+                                                                                                    cart
+                                                                                                </a>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="size">
-                                                                                            <h5>size</h5>
-                                                                                            <ul class="size-box">
-                                                                                                <li class="active">xs
-                                                                                                </li>
-                                                                                                <li>s</li>
-                                                                                                <li>m</li>
-                                                                                                <li>l</li>
-                                                                                                <li>xl</li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                        <div class="addtocart_btn">
-                                                                                            <a href="javascript:void(0)"
-                                                                                               data-toggle="modal"
-                                                                                               class="closeCartbox"
-                                                                                               data-target="#addtocart"
-                                                                                               tabindex="0">add to cart
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    </form>
+
+<!--                                                                                    <div>-->
+<!--                                                                                        <div class="color">-->
+<!--                                                                                            <h5>color</h5>-->
+<!--                                                                                            <ul class="color-variant">-->
+<!--                                                                                                <li class="light-purple active"></li>-->
+<!--                                                                                                <li class="theme-blue"></li>-->
+<!--                                                                                                <li class="theme-color"></li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="size">-->
+<!--                                                                                            <h5>size</h5>-->
+<!--                                                                                            <ul class="size-box">-->
+<!--                                                                                                <li class="active">xs-->
+<!--                                                                                                </li>-->
+<!--                                                                                                <li>s</li>-->
+<!--                                                                                                <li>m</li>-->
+<!--                                                                                                <li>l</li>-->
+<!--                                                                                                <li>xl</li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="addtocart_btn">-->
+<!--                                                                                            <a href="javascript:void(0)"-->
+<!--                                                                                               data-toggle="modal"-->
+<!--                                                                                               class="closeCartbox"-->
+<!--                                                                                               data-target="#addtocart"-->
+<!--                                                                                               tabindex="0">add to cart-->
+<!--                                                                                            </a>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
                                                                                 </div>
                                                                                 <div class="close-cart">
                                                                                     <i class="fa fa-times"
-                                                                                    ></i>
+                                                                                       aria-hidden="true"></i>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -2419,12 +2566,13 @@
                                                                                     <t t-set="in_wish"
                                                                                        t-value="product_variant and product_variant._is_in_wishlist()"/>
                                                                                     <div class="cart-details">
-                                                                                        <a href="#" tabindex="0"
-                                                                                           class="addcart-box a-submit"
-                                                                                           title="Add to Cart">
-                                                                                            <i
-                                                                                                    class="ti-shopping-cart"></i>
-                                                                                        </a>
+<!--                                                                                        <a href="#" tabindex="0"-->
+<!--                                                                                           class="addcart-box a-submit"-->
+<!--                                                                                           title="Add to Cart">-->
+<!--                                                                                            <i-->
+<!--                                                                                                    class="ti-shopping-cart"></i>-->
+<!--                                                                                        </a>-->
+                                                                                        <a tabindex="0" class="addcart-box" title="Quick shop"><i class="ti-shopping-cart" ></i></a>
                                                                                         <a href="#"
                                                                                            title="Add to Wishlist">
                                                                                             <i
@@ -2470,37 +2618,85 @@
                                                                                     </h5>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="addtocart_box d-none">
+                                                                            <div class="addtocart_box">
                                                                                 <div class="addtocart_detail">
-                                                                                    <div>
-                                                                                        <div class="color">
-                                                                                            <h5>color</h5>
-                                                                                            <ul class="color-variant">
-                                                                                                <li class="light-purple active"></li>
-                                                                                                <li class="theme-blue"></li>
-                                                                                                <li class="theme-color"></li>
-                                                                                            </ul>
+                                                                                    <form t-if="product._is_add_to_cart_possible()"
+                                                                                          action="/shop/cart/update"
+                                                                                          method="POST">
+                                                                                        <input type="hidden"
+                                                                                               name="csrf_token"
+                                                                                               t-att-value="request.csrf_token()"/>
+                                                                                        <div class="js_product js_main_product">
+                                                                                            <t t-placeholder="select">
+
+                                                                                                <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                                                                            <t t-set="combination_info"
+                                                                                               t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                                            <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                                                                               <input type="hidden"
+                                                                                                       class="product_id"
+                                                                                                       name="product_id"
+                                                                                                       t-att-value="product_variant.id"/>
+                                                                                                <input type="hidden"
+                                                                                                       class="product_template_id"
+                                                                                                       name="product_template_id"
+                                                                                                       t-att-value="product.id"/>
+                                                                                                <t t-if="combination"
+                                                                                                   t-call="sale.variants">
+                                                                                                    <t t-set="ul_class"
+                                                                                                       t-value="'flex-column'"/>
+                                                                                                    <t t-set="parent_combination"
+                                                                                                       t-value="None"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <ul class="d-none js_add_cart_variants"
+                                                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                                                </t>
+                                                                                            </t>
+                                                                                            <div class="addtocart_btn">
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
+                                                                                                    cart
+                                                                                                </a>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="size">
-                                                                                            <h5>size</h5>
-                                                                                            <ul class="size-box">
-                                                                                                <li class="active">xs
-                                                                                                </li>
-                                                                                                <li>s</li>
-                                                                                                <li>m</li>
-                                                                                                <li>l</li>
-                                                                                                <li>xl</li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                        <div class="addtocart_btn">
-                                                                                            <a href="javascript:void(0)"
-                                                                                               data-toggle="modal"
-                                                                                               class="closeCartbox"
-                                                                                               data-target="#addtocart"
-                                                                                               tabindex="0">add to cart
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    </form>
+
+<!--                                                                                    <div>-->
+<!--                                                                                        <div class="color">-->
+<!--                                                                                            <h5>color</h5>-->
+<!--                                                                                            <ul class="color-variant">-->
+<!--                                                                                                <li class="light-purple active"></li>-->
+<!--                                                                                                <li class="theme-blue"></li>-->
+<!--                                                                                                <li class="theme-color"></li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="size">-->
+<!--                                                                                            <h5>size</h5>-->
+<!--                                                                                            <ul class="size-box">-->
+<!--                                                                                                <li class="active">xs-->
+<!--                                                                                                </li>-->
+<!--                                                                                                <li>s</li>-->
+<!--                                                                                                <li>m</li>-->
+<!--                                                                                                <li>l</li>-->
+<!--                                                                                                <li>xl</li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="addtocart_btn">-->
+<!--                                                                                            <a href="javascript:void(0)"-->
+<!--                                                                                               data-toggle="modal"-->
+<!--                                                                                               class="closeCartbox"-->
+<!--                                                                                               data-target="#addtocart"-->
+<!--                                                                                               tabindex="0">add to cart-->
+<!--                                                                                            </a>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
                                                                                 </div>
                                                                                 <div class="close-cart">
                                                                                     <i class="fa fa-times"
@@ -2586,12 +2782,13 @@
                                                                             <t t-set="in_wish"
                                                                                t-value="product_variant and product_variant._is_in_wishlist()"/>
                                                                             <div class="cart-info">
-                                                                                <a href="#" tabindex="0"
-                                                                                   class="addcart-box a-submit"
-                                                                                   title="Add to Cart">
-                                                                                    <i
-                                                                                            class="ti-shopping-cart"></i>
-                                                                                </a>
+<!--                                                                                <a href="#" tabindex="0"-->
+<!--                                                                                   class="addcart-box a-submit"-->
+<!--                                                                                   title="Add to Cart">-->
+<!--                                                                                    <i-->
+<!--                                                                                            class="ti-shopping-cart"></i>-->
+<!--                                                                                </a>-->
+                                                                                <a tabindex="0" class="addcart-box" title="Quick shop"><i class="ti-shopping-cart" ></i></a>
                                                                                 <a href="#"
                                                                                    title="Add to Wishlist">
                                                                                     <i
@@ -2635,42 +2832,91 @@
                                                                                     t-esc="round(product.list_price, 2)"/>
                                                                         </h5>
                                                                     </div>
-                                                                    <div class="addtocart_box d-none">
-                                                                        <div class="addtocart_detail">
-                                                                            <div>
-                                                                                <div class="color">
-                                                                                    <h5>color</h5>
-                                                                                    <ul class="color-variant">
-                                                                                        <li class="light-purple active"></li>
-                                                                                        <li class="theme-blue"></li>
-                                                                                        <li class="theme-color"></li>
-                                                                                    </ul>
+                                                                    <div class="addtocart_box">
+                                                                                <div class="addtocart_detail">
+                                                                                    <form t-if="product._is_add_to_cart_possible()"
+                                                                                          action="/shop/cart/update"
+                                                                                          method="POST">
+                                                                                        <input type="hidden"
+                                                                                               name="csrf_token"
+                                                                                               t-att-value="request.csrf_token()"/>
+                                                                                        <div class="js_product js_main_product">
+                                                                                            <t t-placeholder="select">
+
+                                                                                                <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                                                                            <t t-set="combination_info"
+                                                                                               t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                                            <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                                                                               <input type="hidden"
+                                                                                                       class="product_id"
+                                                                                                       name="product_id"
+                                                                                                       t-att-value="product_variant.id"/>
+                                                                                                <input type="hidden"
+                                                                                                       class="product_template_id"
+                                                                                                       name="product_template_id"
+                                                                                                       t-att-value="product.id"/>
+                                                                                                <t t-if="combination"
+                                                                                                   t-call="sale.variants">
+                                                                                                    <t t-set="ul_class"
+                                                                                                       t-value="'flex-column'"/>
+                                                                                                    <t t-set="parent_combination"
+                                                                                                       t-value="None"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <ul class="d-none js_add_cart_variants"
+                                                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                                                </t>
+                                                                                            </t>
+                                                                                            <div class="addtocart_btn">
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
+                                                                                                    cart
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+
+<!--                                                                                    <div>-->
+<!--                                                                                        <div class="color">-->
+<!--                                                                                            <h5>color</h5>-->
+<!--                                                                                            <ul class="color-variant">-->
+<!--                                                                                                <li class="light-purple active"></li>-->
+<!--                                                                                                <li class="theme-blue"></li>-->
+<!--                                                                                                <li class="theme-color"></li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="size">-->
+<!--                                                                                            <h5>size</h5>-->
+<!--                                                                                            <ul class="size-box">-->
+<!--                                                                                                <li class="active">xs-->
+<!--                                                                                                </li>-->
+<!--                                                                                                <li>s</li>-->
+<!--                                                                                                <li>m</li>-->
+<!--                                                                                                <li>l</li>-->
+<!--                                                                                                <li>xl</li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="addtocart_btn">-->
+<!--                                                                                            <a href="javascript:void(0)"-->
+<!--                                                                                               data-toggle="modal"-->
+<!--                                                                                               class="closeCartbox"-->
+<!--                                                                                               data-target="#addtocart"-->
+<!--                                                                                               tabindex="0">add to cart-->
+<!--                                                                                            </a>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
                                                                                 </div>
-                                                                                <div class="size">
-                                                                                    <h5>size</h5>
-                                                                                    <ul class="size-box">
-                                                                                        <li class="active">xs</li>
-                                                                                        <li>s</li>
-                                                                                        <li>m</li>
-                                                                                        <li>l</li>
-                                                                                        <li>xl</li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                                <div class="addtocart_btn">
-                                                                                    <a href="javascript:void(0)"
-                                                                                       data-toggle="modal"
-                                                                                       class="closeCartbox"
-                                                                                       data-target="#addtocart"
-                                                                                       tabindex="0">add to cart
-                                                                                    </a>
+                                                                                <div class="close-cart">
+                                                                                    <i class="fa fa-times"
+                                                                                       aria-hidden="true"></i>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="close-cart">
-                                                                            <i class="fa fa-times"
-                                                                               aria-hidden="true"></i>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </t>
@@ -2760,12 +3006,13 @@
                                                                             <t t-set="in_wish"
                                                                                t-value="product_variant and product_variant._is_in_wishlist()"/>
                                                                             <div class="cart-info">
-                                                                                <a href="#" tabindex="0"
-                                                                                   class="addcart-box a-submit"
-                                                                                   title="Add to Cart">
-                                                                                    <i
-                                                                                            class="ti-shopping-cart"></i>
-                                                                                </a>
+<!--                                                                                <a href="#" tabindex="0"-->
+<!--                                                                                   class="addcart-box a-submit"-->
+<!--                                                                                   title="Add to Cart">-->
+<!--                                                                                    <i-->
+<!--                                                                                            class="ti-shopping-cart"></i>-->
+<!--                                                                                </a>-->
+                                                                                <a tabindex="0" class="addcart-box" title="Quick shop"><i class="ti-shopping-cart" ></i></a>
                                                                                 <a href="#"
                                                                                    title="Add to Wishlist">
                                                                                     <i
@@ -2809,42 +3056,91 @@
                                                                                     t-esc="round(product.list_price, 2)"/>
                                                                         </h5>
                                                                     </div>
-                                                                    <div class="addtocart_box d-none">
-                                                                        <div class="addtocart_detail">
-                                                                            <div>
-                                                                                <div class="color">
-                                                                                    <h5>color</h5>
-                                                                                    <ul class="color-variant">
-                                                                                        <li class="light-purple active"></li>
-                                                                                        <li class="theme-blue"></li>
-                                                                                        <li class="theme-color"></li>
-                                                                                    </ul>
+                                                                    <div class="addtocart_box">
+                                                                                <div class="addtocart_detail">
+                                                                                    <form t-if="product._is_add_to_cart_possible()"
+                                                                                          action="/shop/cart/update"
+                                                                                          method="POST">
+                                                                                        <input type="hidden"
+                                                                                               name="csrf_token"
+                                                                                               t-att-value="request.csrf_token()"/>
+                                                                                        <div class="js_product js_main_product">
+                                                                                            <t t-placeholder="select">
+
+                                                                                                <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                                                                            <t t-set="combination_info"
+                                                                                               t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                                            <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                                                                               <input type="hidden"
+                                                                                                       class="product_id"
+                                                                                                       name="product_id"
+                                                                                                       t-att-value="product_variant.id"/>
+                                                                                                <input type="hidden"
+                                                                                                       class="product_template_id"
+                                                                                                       name="product_template_id"
+                                                                                                       t-att-value="product.id"/>
+                                                                                                <t t-if="combination"
+                                                                                                   t-call="sale.variants">
+                                                                                                    <t t-set="ul_class"
+                                                                                                       t-value="'flex-column'"/>
+                                                                                                    <t t-set="parent_combination"
+                                                                                                       t-value="None"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <ul class="d-none js_add_cart_variants"
+                                                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                                                </t>
+                                                                                            </t>
+                                                                                            <div class="addtocart_btn">
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
+                                                                                                    cart
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+
+<!--                                                                                    <div>-->
+<!--                                                                                        <div class="color">-->
+<!--                                                                                            <h5>color</h5>-->
+<!--                                                                                            <ul class="color-variant">-->
+<!--                                                                                                <li class="light-purple active"></li>-->
+<!--                                                                                                <li class="theme-blue"></li>-->
+<!--                                                                                                <li class="theme-color"></li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="size">-->
+<!--                                                                                            <h5>size</h5>-->
+<!--                                                                                            <ul class="size-box">-->
+<!--                                                                                                <li class="active">xs-->
+<!--                                                                                                </li>-->
+<!--                                                                                                <li>s</li>-->
+<!--                                                                                                <li>m</li>-->
+<!--                                                                                                <li>l</li>-->
+<!--                                                                                                <li>xl</li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="addtocart_btn">-->
+<!--                                                                                            <a href="javascript:void(0)"-->
+<!--                                                                                               data-toggle="modal"-->
+<!--                                                                                               class="closeCartbox"-->
+<!--                                                                                               data-target="#addtocart"-->
+<!--                                                                                               tabindex="0">add to cart-->
+<!--                                                                                            </a>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
                                                                                 </div>
-                                                                                <div class="size">
-                                                                                    <h5>size</h5>
-                                                                                    <ul class="size-box">
-                                                                                        <li class="active">xs</li>
-                                                                                        <li>s</li>
-                                                                                        <li>m</li>
-                                                                                        <li>l</li>
-                                                                                        <li>xl</li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                                <div class="addtocart_btn">
-                                                                                    <a href="javascript:void(0)"
-                                                                                       data-toggle="modal"
-                                                                                       class="closeCartbox"
-                                                                                       data-target="#addtocart"
-                                                                                       tabindex="0">add to cart
-                                                                                    </a>
+                                                                                <div class="close-cart">
+                                                                                    <i class="fa fa-times"
+                                                                                       aria-hidden="true"></i>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="close-cart">
-                                                                            <i class="fa fa-times"
-                                                                               aria-hidden="true"></i>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </t>
@@ -3110,12 +3406,13 @@
                                                                             <t t-set="in_wish"
                                                                                t-value="product_variant and product_variant._is_in_wishlist()"/>
                                                                             <div class="cart-details">
-                                                                                <a href="#" tabindex="0"
-                                                                                   class="addcart-box a-submit"
-                                                                                   title="Add to Cart">
-                                                                                    <i
-                                                                                            class="ti-shopping-cart"></i>
-                                                                                </a>
+<!--                                                                                <a href="#" tabindex="0"-->
+<!--                                                                                   class="addcart-box a-submit"-->
+<!--                                                                                   title="Add to Cart">-->
+<!--                                                                                    <i-->
+<!--                                                                                            class="ti-shopping-cart"></i>-->
+<!--                                                                                </a>-->
+                                                                                <a tabindex="0" class="addcart-box" title="Quick shop"><i class="ti-shopping-cart" ></i></a>
                                                                                 <a href="#"
                                                                                    title="Add to Wishlist">
                                                                                     <i
@@ -3161,43 +3458,91 @@
                                                                             </h5>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="addtocart_box d-none">
-                                                                        <div class="addtocart_detail">
-                                                                            <div>
-                                                                                <div class="color">
-                                                                                    <h5>color</h5>
-                                                                                    <ul class="color-variant">
-                                                                                        <li class="light-purple active"></li>
-                                                                                        <li class="theme-blue"></li>
-                                                                                        <li class="theme-color"></li>
-                                                                                    </ul>
+                                                                    <div class="addtocart_box">
+                                                                                <div class="addtocart_detail">
+                                                                                    <form t-if="product._is_add_to_cart_possible()"
+                                                                                          action="/shop/cart/update"
+                                                                                          method="POST">
+                                                                                        <input type="hidden"
+                                                                                               name="csrf_token"
+                                                                                               t-att-value="request.csrf_token()"/>
+                                                                                        <div class="js_product js_main_product">
+                                                                                            <t t-placeholder="select">
+
+                                                                                                <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                                                                            <t t-set="combination_info"
+                                                                                               t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                                            <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                                                                               <input type="hidden"
+                                                                                                       class="product_id"
+                                                                                                       name="product_id"
+                                                                                                       t-att-value="product_variant.id"/>
+                                                                                                <input type="hidden"
+                                                                                                       class="product_template_id"
+                                                                                                       name="product_template_id"
+                                                                                                       t-att-value="product.id"/>
+                                                                                                <t t-if="combination"
+                                                                                                   t-call="sale.variants">
+                                                                                                    <t t-set="ul_class"
+                                                                                                       t-value="'flex-column'"/>
+                                                                                                    <t t-set="parent_combination"
+                                                                                                       t-value="None"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <ul class="d-none js_add_cart_variants"
+                                                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                                                </t>
+                                                                                            </t>
+                                                                                            <div class="addtocart_btn">
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
+                                                                                                    cart
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+
+<!--                                                                                    <div>-->
+<!--                                                                                        <div class="color">-->
+<!--                                                                                            <h5>color</h5>-->
+<!--                                                                                            <ul class="color-variant">-->
+<!--                                                                                                <li class="light-purple active"></li>-->
+<!--                                                                                                <li class="theme-blue"></li>-->
+<!--                                                                                                <li class="theme-color"></li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="size">-->
+<!--                                                                                            <h5>size</h5>-->
+<!--                                                                                            <ul class="size-box">-->
+<!--                                                                                                <li class="active">xs-->
+<!--                                                                                                </li>-->
+<!--                                                                                                <li>s</li>-->
+<!--                                                                                                <li>m</li>-->
+<!--                                                                                                <li>l</li>-->
+<!--                                                                                                <li>xl</li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="addtocart_btn">-->
+<!--                                                                                            <a href="javascript:void(0)"-->
+<!--                                                                                               data-toggle="modal"-->
+<!--                                                                                               class="closeCartbox"-->
+<!--                                                                                               data-target="#addtocart"-->
+<!--                                                                                               tabindex="0">add to cart-->
+<!--                                                                                            </a>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
                                                                                 </div>
-                                                                                <div class="size">
-                                                                                    <h5>size</h5>
-                                                                                    <ul class="size-box">
-                                                                                        <li class="active">xs
-                                                                                        </li>
-                                                                                        <li>s</li>
-                                                                                        <li>m</li>
-                                                                                        <li>l</li>
-                                                                                        <li>xl</li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                                <div class="addtocart_btn">
-                                                                                    <a href="javascript:void(0)"
-                                                                                       data-toggle="modal"
-                                                                                       class="closeCartbox"
-                                                                                       data-target="#addtocart"
-                                                                                       tabindex="0">add to cart
-                                                                                    </a>
+                                                                                <div class="close-cart">
+                                                                                    <i class="fa fa-times"
+                                                                                       aria-hidden="true"></i>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="close-cart">
-                                                                            <i class="fa fa-times"
-                                                                            ></i>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </t>
@@ -3465,12 +3810,13 @@
                                                                                     <t t-set="in_wish"
                                                                                        t-value="product_variant and product_variant._is_in_wishlist()"/>
                                                                                     <div class="cart-details">
-                                                                                        <a href="#" tabindex="0"
-                                                                                           class="addcart-box a-submit"
-                                                                                           title="Add to Cart">
-                                                                                            <i
-                                                                                                    class="ti-shopping-cart"></i>
-                                                                                        </a>
+<!--                                                                                        <a href="#" tabindex="0"-->
+<!--                                                                                           class="addcart-box a-submit"-->
+<!--                                                                                           title="Add to Cart">-->
+<!--                                                                                            <i-->
+<!--                                                                                                    class="ti-shopping-cart"></i>-->
+<!--                                                                                        </a>-->
+                                                                                        <a tabindex="0" class="addcart-box" title="Quick shop"><i class="ti-shopping-cart" ></i></a>
                                                                                         <a href="#"
                                                                                            title="Add to Wishlist">
                                                                                             <i
@@ -3516,41 +3862,89 @@
                                                                                     </h5>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="addtocart_box d-none">
+                                                                            <div class="addtocart_box">
                                                                                 <div class="addtocart_detail">
-                                                                                    <div>
-                                                                                        <div class="color">
-                                                                                            <h5>color</h5>
-                                                                                            <ul class="color-variant">
-                                                                                                <li class="light-purple active"></li>
-                                                                                                <li class="theme-blue"></li>
-                                                                                                <li class="theme-color"></li>
-                                                                                            </ul>
+                                                                                    <form t-if="product._is_add_to_cart_possible()"
+                                                                                          action="/shop/cart/update"
+                                                                                          method="POST">
+                                                                                        <input type="hidden"
+                                                                                               name="csrf_token"
+                                                                                               t-att-value="request.csrf_token()"/>
+                                                                                        <div class="js_product js_main_product">
+                                                                                            <t t-placeholder="select">
+
+                                                                                                <t t-set="combination" t-value="product._get_first_possible_combination()"/>
+                                                                                            <t t-set="combination_info"
+                                                                                               t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                                            <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+                                                                                               <input type="hidden"
+                                                                                                       class="product_id"
+                                                                                                       name="product_id"
+                                                                                                       t-att-value="product_variant.id"/>
+                                                                                                <input type="hidden"
+                                                                                                       class="product_template_id"
+                                                                                                       name="product_template_id"
+                                                                                                       t-att-value="product.id"/>
+                                                                                                <t t-if="combination"
+                                                                                                   t-call="sale.variants">
+                                                                                                    <t t-set="ul_class"
+                                                                                                       t-value="'flex-column'"/>
+                                                                                                    <t t-set="parent_combination"
+                                                                                                       t-value="None"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <ul class="d-none js_add_cart_variants"
+                                                                                                        t-att-data-attribute_exclusions="{'exclusions: []'}"/>
+                                                                                                </t>
+                                                                                            </t>
+                                                                                            <div class="addtocart_btn">
+<!--                                                                                                <a href="#"-->
+<!--                                                                                                   class="text-primary a-submit"-->
+<!--                                                                                                   tabindex="0">add to-->
+<!--                                                                                                    cart-->
+<!--                                                                                                </a>-->
+                                                                                                <a t-att-id="product.id"
+                                                                                                   class="text-primary add_to_cart_custom"
+                                                                                                   tabindex="0" style="cursor: pointer;">add to
+                                                                                                    cart
+                                                                                                </a>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="size">
-                                                                                            <h5>size</h5>
-                                                                                            <ul class="size-box">
-                                                                                                <li class="active">xs
-                                                                                                </li>
-                                                                                                <li>s</li>
-                                                                                                <li>m</li>
-                                                                                                <li>l</li>
-                                                                                                <li>xl</li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                        <div class="addtocart_btn">
-                                                                                            <a href="javascript:void(0)"
-                                                                                               data-toggle="modal"
-                                                                                               class="closeCartbox"
-                                                                                               data-target="#addtocart"
-                                                                                               tabindex="0">add to cart
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    </form>
+
+<!--                                                                                    <div>-->
+<!--                                                                                        <div class="color">-->
+<!--                                                                                            <h5>color</h5>-->
+<!--                                                                                            <ul class="color-variant">-->
+<!--                                                                                                <li class="light-purple active"></li>-->
+<!--                                                                                                <li class="theme-blue"></li>-->
+<!--                                                                                                <li class="theme-color"></li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="size">-->
+<!--                                                                                            <h5>size</h5>-->
+<!--                                                                                            <ul class="size-box">-->
+<!--                                                                                                <li class="active">xs-->
+<!--                                                                                                </li>-->
+<!--                                                                                                <li>s</li>-->
+<!--                                                                                                <li>m</li>-->
+<!--                                                                                                <li>l</li>-->
+<!--                                                                                                <li>xl</li>-->
+<!--                                                                                            </ul>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        <div class="addtocart_btn">-->
+<!--                                                                                            <a href="javascript:void(0)"-->
+<!--                                                                                               data-toggle="modal"-->
+<!--                                                                                               class="closeCartbox"-->
+<!--                                                                                               data-target="#addtocart"-->
+<!--                                                                                               tabindex="0">add to cart-->
+<!--                                                                                            </a>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
                                                                                 </div>
                                                                                 <div class="close-cart">
                                                                                     <i class="fa fa-times"
-                                                                                    ></i>
+                                                                                       aria-hidden="true"></i>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -3769,6 +4163,171 @@
                     </div>
                 </t>
                 <!-- Quick View Popup End-->
+
+                <!-- Add to cart modal popup start-->
+                <t t-foreach="products" t-as="product">
+                <div class="modal fade bd-example-modal-lg theme-modal cart-modal" t-attf-id="addtocart-#{product.id}" tabindex="-1"
+                     role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body modal1">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="modal-bg addtocart">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">X</span>
+                                                </button>
+                                                <div class="media">
+                                                    <a href="#">
+<!--                                                        <img class="img-fluid  pro-img"-->
+<!--                                                             src="../assets/images/product/4.jpg" alt="">-->
+                                                         <img t-attf-src="/web/image/product.template/#{product.id}/image_1920"
+                                                                     alt=""
+                                                                     class="img-fluid ml-4"  style="height:154px"/>
+<!--                                                      <img src="/theme_bigboost/static/src/img/2.jpg" class=" img-fluid ml-4" alt="" style="height:154px"/>-->
+                                                    </a>
+                                                    <div class="media-body align-self-center text-center">
+                                                        <a href="#">
+                                                            <h6>
+                                                                <i class="fa fa-check"></i>Item
+                                                                <span><t t-esc="product.name"/></span>
+                                                                <span>successfully added to your Cart -</span>
+<!--                                                                <span>blue,</span>-->
+<!--                                                                <span>XS</span>-->
+                                                            </h6>
+                                                        </a>
+                                                        <div class="buttons">
+                                                            <a href="/shop/cart" class="view-cart btn btn-solid">Your
+                                                                cart
+                                                            </a>
+                                                            <a href="/shop/checkout" class="checkout btn btn-solid">Check
+                                                                out
+                                                            </a>
+                                                            <a href="#" data-dismiss="modal"
+                                                               class="continue btn btn-solid">Continue shopping
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="upsell_payment">
+<!--                                                            <img src="../assets/images/payment_cart.png"-->
+<!--                                                                 class="img-fluid " alt="">-->
+                                                            <img src="/theme_bigboost/static/src/img/payment_cart.png" class=" img-fluid" alt=""/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <t t-if="product.alternative_product_ids">
+                                                <div class="product-section">
+                                                    <div class="col-12 product-upsell text-center">
+                                                        <h4>Customers who bought this item also.</h4>
+                                                    </div>
+                                                    <div class="row" id="upsell_product">
+                                                        <t t-set="count" t-value="0"/>
+                                                        <t t-foreach="product.alternative_product_ids" t-as="alternative_product">
+                                                            <t t-if="count &lt; 4">
+                                                                <div class="product-box col-sm-3 text-center col-6">
+                                                                    <div class="img-wrapper">
+                                                                    <div class="front">
+                                                                        <a t-attf-href="/shop/product/#{ slug(alternative_product) }">
+    <!--                                                                        <img src="../assets/images/product/1.jpg"-->
+    <!--                                                                             class="img-fluid  mb-1" alt="cotton top">-->
+    <!--                                                                        <img src="/theme_bigboost/static/src/img/2.jpg" class=" img-fluid mb-1" alt="" style="height:154px"/>-->
+                                                                            <img t-attf-src="/web/image/product.template/#{alternative_product.id}/image_1920" alt="" class="img-fluid mb-1"  style="height:154px"/>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-detail">
+                                                                        <h6>
+                                                                            <a t-attf-href="/shop/product/#{ slug(alternative_product) }">
+                                                                                <span><t t-esc="alternative_product.name"/></span>
+                                                                            </a>
+                                                                        </h6>
+                                                                        <h4>
+                                                                            <span><t t-esc="alternative_product.currency_id.symbol"/>
+                                                                                <t t-esc="round(alternative_product.list_price, 2)"/></span>
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                            </t>
+                                                            <t t-set="count" t-value="count+1"/>
+                                                        </t>
+<!--                                                        <div class="product-box col-sm-3 text-center col-6">-->
+<!--                                                            <div class="img-wrapper">-->
+<!--                                                                <div class="front">-->
+<!--                                                                    <a href="product-page.html">-->
+<!--&lt;!&ndash;                                                                        <img src="../assets/images/product/6.jpg"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                             class="img-fluid  mb-1" alt="cotton top">&ndash;&gt;-->
+<!--                                                                                <img src="/theme_bigboost/static/src/img/2.jpg" class=" img-fluid mb-1" alt="" style="height:154px"/>-->
+<!--                                                                    </a>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="product-detail">-->
+<!--                                                                    <h6>-->
+<!--                                                                        <a href="#">-->
+<!--                                                                            <span>cotton top</span>-->
+<!--                                                                        </a>-->
+<!--                                                                    </h6>-->
+<!--                                                                    <h4>-->
+<!--                                                                        <span>$25</span>-->
+<!--                                                                    </h4>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="product-box col-sm-3 text-center col-6">-->
+<!--                                                            <div class="img-wrapper">-->
+<!--                                                                <div class="front">-->
+<!--                                                                    <a href="product-page.html">-->
+<!--&lt;!&ndash;                                                                        <img src="../assets/images/product/13.jpg"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                             class="img-fluid  mb-1" alt="cotton top">&ndash;&gt;-->
+<!--                                                                        <img src="/theme_bigboost/static/src/img/2.jpg" class=" img-fluid mb-1" alt="" style="height:154px"/>-->
+<!--                                                                    </a>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="product-detail">-->
+<!--                                                                    <h6>-->
+<!--                                                                        <a href="#">-->
+<!--                                                                            <span>cotton top</span>-->
+<!--                                                                        </a>-->
+<!--                                                                    </h6>-->
+<!--                                                                    <h4>-->
+<!--                                                                        <span>$25</span>-->
+<!--                                                                    </h4>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="product-box col-sm-3 text-center col-6">-->
+<!--                                                            <div class="img-wrapper">-->
+<!--                                                                <div class="front">-->
+<!--                                                                    <a href="product-page.html#">-->
+<!--&lt;!&ndash;                                                                        <img src="../assets/images/product/19.jpg"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                             class="img-fluid  mb-1" alt="cotton top">&ndash;&gt;-->
+<!--                                                                        <img src="/theme_bigboost/static/src/img/2.jpg" class=" img-fluid mb-1" alt="" style="height:154px"/>-->
+<!--                                                                    </a>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="product-detail">-->
+<!--                                                                    <h6>-->
+<!--                                                                        <a href="#">-->
+<!--                                                                            <span>cotton top</span>-->
+<!--                                                                        </a>-->
+<!--                                                                    </h6>-->
+<!--                                                                    <h4>-->
+<!--                                                                        <span>$25</span>-->
+<!--                                                                    </h4>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+                                                    </div>
+                                                </div>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </t>
+                <!-- Add to cart modal popup end-->
 
                 <div class="oe_structure mb32 d-none" id="oe_structure_website_sale_products_2"/>
             </div>

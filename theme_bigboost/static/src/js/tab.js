@@ -7,6 +7,7 @@ odoo.define('theme_bigboost.tab', function(require) {"use strict";
 
     $(document).ready(function(){
 
+        // SHOP Product SORTING Update
         $("#sorting_shop").change(function(){
             var sorting_shop =  $("#sorting_shop").val()
             if(sorting_shop){
@@ -14,20 +15,10 @@ odoo.define('theme_bigboost.tab', function(require) {"use strict";
             }
         })
 
-//        setTimeout(function(){
-         console.log("=========LENGTH======1=====",$('.o_product_feature_panel').length)
-        if($('.modal-content .o_product_feature_panel').length){
-            console.log("=========LENGTH=====3======",$('.modal-content .o_product_feature_panel').length)
-            $('.modal-content .o_product_feature_panel').html('')
-        }
-//         }, 3000);
-
-
+        // SHOP Product PPG Update
         $("#ppg_shop").change(function(){
             var ppg_shop =  $("#ppg_shop").val()
-            console.log("=========ppg_shop===========",ppg_shop)
             if(ppg_shop){
-                 console.log("=========RPC CALL===========",ppg_shop)
                  if(ppg_shop){
                     rpc.query({route: '/ppg_shop/update',
                         params:{
@@ -41,7 +32,6 @@ odoo.define('theme_bigboost.tab', function(require) {"use strict";
                  }
             }
         })
-
 
         // Product Timer JS
          if($('#timer').length>0){
@@ -95,6 +85,39 @@ odoo.define('theme_bigboost.tab', function(require) {"use strict";
                 }, 1000);
         }
     }
+
+        // Add to cart for product page
+        $("#add_to_cart_custom").click(function(){
+            console.log("======CART MA ADD KARVANU CHHE========")
+            var product_template_id = $(this).closest("form").find(".product_id").val()
+            var add_qty = $(this).closest("form").find(".quantity").val()
+            console.log("======CART MA ADD KARVANU CHHE======product_template_id==",product_template_id)
+            console.log("======CART MA ADD KARVANU CHHE======product_template_id==",add_qty)
+
+            if(product_template_id && add_qty){
+                ajax.jsonRpc('/custom_cart', 'call', {'product_template_id': product_template_id, 'add_qty':add_qty}).then(function(data){
+                  if(data){
+                    $('#addtocart').modal('show');
+                  }
+                })
+            }
+         })
+
+        // Add to cart for shop page
+        $(".add_to_cart_custom").click(function(){
+            var elmId = $(this).attr("id");
+            if(elmId){
+                var product_template_id = $(this).closest("form").find(".product_id").val()
+                var add_qty = 1
+                if(product_template_id && add_qty){
+                    ajax.jsonRpc('/custom_cart', 'call', {'product_template_id': product_template_id, 'add_qty':add_qty}).then(function(data){
+                      if(data){
+                        $('#addtocart-'+elmId).modal('show');
+                      }
+                    })
+                }
+            }
+         })
 
     });
 

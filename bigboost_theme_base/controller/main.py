@@ -62,3 +62,14 @@ class WebsiteController(http.Controller):
                 'state':post.get("stars"),
             })
         return request.render('bigboost_theme_base.thank_you_review_template', {'product':product})
+
+    # Product add to Cart by Popup
+    @http.route(['/custom_cart'], type='json', auth="public", method='post', website=True)
+    def custom_cart(self, **post):
+        if post.get('product_template_id') and post.get('add_qty'):
+            order = request.website.sale_get_order(force_create=True)
+            order._cart_update(
+                product_id=int(post.get('product_template_id')),
+                add_qty=int(post.get('add_qty')),
+            )
+        return True
